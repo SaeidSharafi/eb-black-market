@@ -4,7 +4,7 @@ return [
         'equipment' => 'Equipment',
         'consumable' => 'Consumable',
         'resource' => 'Resource',
-        'part' => 'Part',
+        'part' => 'Carfting Part',
         'recipe' => 'Recipe',
     ],
 

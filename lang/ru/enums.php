@@ -1,10 +1,10 @@
 <?php
 return [
     'ItemTypeEnum' => [
-        'EQUIPMENT' => 'Оборудование',
-        'CONSUMABLE' => 'Расходный материал',
-        'RESOURCE' => 'Ресурс',
-        'PART' => 'Часть',
+        'equipment' => 'Оборудование',
+        'consumable' => 'Расходный материал',
+        'resource' => 'Ресурс',
+        'part' => 'Часть крафта',
     ],
     'MarketListingStatusEnum' => [
         'ACTIVE' => 'Активный',

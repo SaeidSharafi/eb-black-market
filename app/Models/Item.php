@@ -13,7 +13,9 @@ class Item extends Model
     protected $guarded =[];
     public array $translatable = ['name'];
 
-
+    protected $casts = [
+        'last_listed_at' => 'datetime',
+    ];
 
     public function marketListings(): HasMany
     {
