@@ -66,10 +66,65 @@ final class MarketListingTable extends PowerGridComponent
             })
             ->add('prices', function (MarketListing $listing) {
                 $prices = '<div class="flex flex-col">';
-                if($listing->price_qrk) $prices .= "<span><span class='font-bold text-purple-400'>QRK:</span> ".number_format($listing->price_qrk, 2)."</span>";
-                if($listing->price_not) $prices .= "<span><span class='font-bold text-green-400'>NOT:</span> ".number_format($listing->price_not, 2)."</span>";
-                if($listing->price_ton) $prices .= "<span><span class='font-bold text-blue-400'>TON:</span> ".number_format($listing->price_ton, 2)."</span>";
-                if($listing->price_usd) $prices .= "<span><span class='font-bold text-yellow-400'>USD:</span> ".number_format($listing->price_usd, 2)."</span>";
+                if($listing->price_qrk) $prices .=
+                    "<span><span class='font-bold text-purple-400'>QRK:</span> "
+                    .number_format($listing->price_qrk, 2)
+                    . " <span class='text-xs text-gray-500''>"
+                    . number_format(cache()->get('qrk_usdt_price', 0.0) * $listing->price_qrk, 2)
+                    ." USDT</span></span>";
+                if($listing->price_not) $prices .=
+                    "<span><span class='font-bold text-green-400'>NOT:</span> "
+                    .number_format($listing->price_not, 2)
+                    . " <span class='text-xs text-gray-500''>"
+                    . number_format(cache()->get('not_usdt_price', 0.0) * $listing->price_not, 2)
+                    ." USDT</span></span>";
+                if($listing->price_ton) $prices .=
+                    "<span><span class='font-bold text-blue-400'>TON:</span> "
+                    .number_format($listing->price_ton, 2)
+                    . " <span class='text-xs text-gray-500'>"
+                    . number_format(cache()->get('ton_usdt_price', 0.0) * $listing->price_ton, 2)
+                    ." USDT</span></span>";
+                if($listing->price_usd) $prices .=
+                    "<span><span class='font-bold text-yellow-400'>USD:</span> "
+                    .number_format($listing->price_usd, 2)
+                    ."</span>";
+                $prices .= '</div>';
+
+                if (strpos($prices, '<span>') === false) {
+                    return '<span class="text-gray-400">' . __('resources.home.na') . '</span>';
+                }
+                return $prices;
+            })
+            ->add('avg_prices', function (MarketListing $listing) {
+                $prices = '<div class="flex flex-col">';
+                $tonusdt = $listing->price_ton ? cache()->get('ton_usdt_price', 0.0) * $listing->price_ton : 0.0;
+                $qrkusd = $listing->price_qrk ? cache()->get('qrk_usd_price', 0.0) * $listing->price_qrk: 0.0;
+                $notusd = $listing->price_not ? cache()->get('not_usd_price', 0.0) * $listing->price_not : 0.0;
+                $usdt = $listing->price_usd;
+                //calculate average price in USD (sum all avaliable prices dived by nimber of them)
+                $avgprice = 0.0;
+                $count = 0;
+                if ($tonusdt > 0) {
+                    $avgprice += $tonusdt;
+                    $count++;
+                }
+                if ($qrkusd > 0) {
+                    $avgprice += $qrkusd;
+                    $count++;
+                }
+                if ($notusd > 0) {
+                    $avgprice += $notusd;
+                    $count++;
+                }
+                if ($usdt > 0) {
+                    $avgprice += $usdt;
+                    $count++;
+                }
+                if ($count > 0) {
+                    $avgprice /= $count;
+                }
+
+                $prices .= "<span>".number_format($avgprice, 2)."<span class='font-bold text-green-400'> USDT</span></span>";
                 $prices .= '</div>';
 
                 if (strpos($prices, '<span>') === false) {
@@ -101,6 +156,7 @@ final class MarketListingTable extends PowerGridComponent
             Column::make(__('resources.home.item_type'), 'item_type', 'items.type')
                 ->sortable(),
             Column::make(__('resources.home.prices'), 'prices', 'price_qrk'),
+            Column::make(__('resources.home.avg_prices'), 'avg_prices', 'price_qrk'),
 
             Column::make(__('resources.home.seller_telegram'), 'seller', 'users.telegram_username')
                 ->sortable()

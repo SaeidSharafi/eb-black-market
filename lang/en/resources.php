@@ -60,6 +60,7 @@ return [
         'item_name' => 'Item Name',
         'item_type' => 'Item Type',
         'prices' => 'Prices',
+        'avg_prices' => 'Average Prices',
         'usd_price' => 'USD Price',
         'seller_telegram' => 'Seller (Telegram)',
         'listed' => 'Listed',

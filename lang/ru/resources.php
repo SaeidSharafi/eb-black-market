@@ -60,6 +60,7 @@ return [
         'item_name' => 'Название',
         'item_type' => 'Тип',
         'prices' => 'Цены',
+        'avg_prices' => 'Средние цены',
         'usd_price' => 'Цена в USD',
         'seller_telegram' => 'Продавец (Telegram)',
         'listed' => 'Размещено',
