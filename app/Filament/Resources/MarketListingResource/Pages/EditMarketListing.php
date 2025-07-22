@@ -16,10 +16,4 @@ class EditMarketListing extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
-
-    public function mutateFormDataBeforeSave(array $data): array
-    {
-        $data['user_id'] = auth()->id();
-        return $data;
-    }
 }

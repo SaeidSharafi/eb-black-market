@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Dashboard\Resources;
 
-use App\Filament\Resources\MarketListingResource\Pages;
-use App\Filament\Resources\MarketListingResource\RelationManagers;
+use App\Filament\Dashboard\Resources\MyListingResource\Pages;
+use App\Filament\Dashboard\Resources\MyListingResource\RelationManagers;
 use App\Models\Item;
 use App\Models\MarketListing;
+use App\Models\MyListing;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +14,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\DB;
 
-class MarketListingResource extends Resource
+class MyListingResource extends Resource
 {
     protected static ?string $model = MarketListing::class;
     protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
@@ -24,12 +24,10 @@ class MarketListingResource extends Resource
     {
         return __('resources.market_listings.navigation');
     }
-
     public static function getLabel(): string
     {
         return __('resources.market_listings.label');
     }
-
     public static function getPluralLabel(): string
     {
         return __('resources.market_listings.plural_label');
@@ -42,21 +40,14 @@ class MarketListingResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make()->schema([
-                    Forms\Components\Select::make('user_id')
-                        ->label(__('resources.market_listings.fields.seller'))
-                        ->default(auth()->id())
-                        ->relationship('user', 'name')
-                        ->required(),
+                    // Requirement: item_id is a searchable dropdown that respects locale
                     Forms\Components\Select::make('item_id')
                         ->label(__('resources.market_listings.fields.item'))
                         ->allowHtml()
                         ->required()
                         ->searchable()
                         ->getSearchResultsUsing(function (string $search) use ($locale) {
-                            $items
-                                = Item::whereRaw("LOWER(CAST(JSON_UNQUOTE(JSON_EXTRACT(items.name, '$.$locale')) AS CHAR)) LIKE ?",
-                                ['%'.$search.'%'])->get();
-
+                            $items =  Item::whereRaw("LOWER(CAST(JSON_UNQUOTE(JSON_EXTRACT(items.name, '$.$locale')) AS CHAR)) LIKE ?",['%'.$search.'%'])->get();
                             return $items->mapWithKeys(function ($item) {
                                 return [$item->getKey() => static::getCleanOptionString($item)];
                             })->toArray();
@@ -91,14 +82,10 @@ class MarketListingResource extends Resource
                 Forms\Components\Section::make(__('resources.market_listings.sections.prices'))
                     ->description(__('resources.market_listings.sections.prices_description'))
                     ->schema([
-                        Forms\Components\TextInput::make('price_qrk')
-                            ->label(__('resources.market_listings.fields.price_qrk'))->numeric(),
-                        Forms\Components\TextInput::make('price_not')
-                            ->label(__('resources.market_listings.fields.price_not'))->numeric(),
-                        Forms\Components\TextInput::make('price_ton')
-                            ->label(__('resources.market_listings.fields.price_ton'))->numeric(),
-                        Forms\Components\TextInput::make('price_usd')
-                            ->label(__('resources.market_listings.fields.price_usd'))->numeric(),
+                        Forms\Components\TextInput::make('price_qrk')->label(__('resources.market_listings.fields.price_qrk'))->numeric(),
+                        Forms\Components\TextInput::make('price_not')->label(__('resources.market_listings.fields.price_not'))->numeric(),
+                        Forms\Components\TextInput::make('price_ton')->label(__('resources.market_listings.fields.price_ton'))->numeric(),
+                        Forms\Components\TextInput::make('price_usd')->label(__('resources.market_listings.fields.price_usd'))->numeric(),
                     ])->columns(2)
             ]);
     }
@@ -106,6 +93,7 @@ class MarketListingResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(MarketListing::query()->where('user_id', auth()->id()))
             ->columns([
                 Tables\Columns\ImageColumn::make('item.image')
                     ->label('')
@@ -129,19 +117,14 @@ class MarketListingResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('quintity_per_bundle')
                     ->label(__('resources.market_listings.fields.quantity_per_bundle')),
-                Tables\Columns\TextColumn::make('price_qrk')->label(__('resources.market_listings.fields.price_qrk'))
-                    ->money('QRK')->sortable()->toggleable(),
-                Tables\Columns\TextColumn::make('price_not')->label(__('resources.market_listings.fields.price_not'))
-                    ->money('NOT')->sortable()->toggleable(),
-                Tables\Columns\TextColumn::make('price_ton')->label(__('resources.market_listings.fields.price_ton'))
-                    ->money('TON')->sortable()->toggleable(),
-                Tables\Columns\TextColumn::make('price_usd')->label(__('resources.market_listings.fields.price_usd'))
-                    ->money('USD')->sortable()->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('status')->label(__('resources.market_listings.fields.status'))->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'active' => 'success',
-                        'inactive' => 'warning',
-                    }),
+                Tables\Columns\TextColumn::make('price_qrk')->label(__('resources.market_listings.fields.price_qrk'))->money('QRK')->sortable()->toggleable(),
+                Tables\Columns\TextColumn::make('price_not')->label(__('resources.market_listings.fields.price_not'))->money('NOT')->sortable()->toggleable(),
+                Tables\Columns\TextColumn::make('price_ton')->label(__('resources.market_listings.fields.price_ton'))->money('TON')->sortable()->toggleable(),
+                Tables\Columns\TextColumn::make('price_usd')->label(__('resources.market_listings.fields.price_usd'))->money('USD')->sortable()->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('status')->label(__('resources.market_listings.fields.status'))->badge()->color(fn(string $state): string => match ($state) {
+                    'active' => 'success',
+                    'inactive' => 'warning',
+                }),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
@@ -149,7 +132,6 @@ class MarketListingResource extends Resource
                         'active'   => 'Active',
                         'inactive' => 'Inactive',
                     ]),
-
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -171,9 +153,9 @@ class MarketListingResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListMarketListings::route('/'),
-            'create' => Pages\CreateMarketListing::route('/create'),
-            'edit'   => Pages\EditMarketListing::route('/{record}/edit'),
+            'index' => Pages\ListMyListings::route('/'),
+            'create' => Pages\CreateMyListing::route('/create'),
+            'edit' => Pages\EditMyListing::route('/{record}/edit'),
         ];
     }
 
