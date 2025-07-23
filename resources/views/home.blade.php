@@ -129,16 +129,4 @@
                 </a>
             </div>
         </main>
-
-        <!-- Footer -->
-        <footer class="bg-gray-800 border-t border-gray-700/50 mt-12">
-            <div
-                class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-500 text-sm"
-            >
-                <p>
-                    &copy; {{ date("Y") }} Empires Market.
-                    {{ __("resources.home.footer_disclaimer") }}
-                </p>
-            </div>
-        </footer>
 @endsection
