@@ -68,6 +68,6 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
      */
     public function isSuperAdmin(): bool
     {
-        return true;
+        return $this->is_super_admin;
     }
 }
