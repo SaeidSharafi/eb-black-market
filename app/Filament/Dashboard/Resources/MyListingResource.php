@@ -19,7 +19,7 @@ class MyListingResource extends Resource
 {
     protected static ?string $model = MarketListing::class;
     protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
-
+    protected static array|string $routeMiddleware = \App\Http\Middleware\EnsureTelegramUsernameIsFilledMiddleware::class;
     public static function getNavigationLabel(): string
     {
         return __('resources.market_listings.navigation');
