@@ -3,6 +3,7 @@
 namespace App\Filament\Pages\Auth;
 
 use App\Filament\Pages\TextInput;
+use App\Providers\Filament\DashboardPanelProvider;
 use Filament\Forms\Form;
 use Filament\Pages\Auth\EditProfile as BaseEditProfileAlias;
 
@@ -20,6 +21,12 @@ class EditProfile extends BaseEditProfileAlias
                 $this->getEmailFormComponent(),
                 $this->getPasswordFormComponent(),
                 $this->getPasswordConfirmationFormComponent(),
-            ]);
+            ])
+            ;
+    }
+
+    protected function getRedirectUrl(): ?string
+    {
+        return '/dashboard';
     }
 }
