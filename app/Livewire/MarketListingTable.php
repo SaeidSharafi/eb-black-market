@@ -155,6 +155,8 @@ final class MarketListingTable extends PowerGridComponent
                 ->searchableRaw("LOWER(CAST(JSON_UNQUOTE(JSON_EXTRACT(items.name, '$.$locale')) AS CHAR)) LIKE ?"),
             Column::make(__('resources.home.item_type'), 'item_type', 'items.type')
                 ->sortable(),
+            Column::make(__('resources.market_listings.fields.quantity'), 'quantity', 'quantity'),
+            Column::make(__('resources.market_listings.fields.quantity_per_bundle'), 'quintity_per_bundle', 'quintity_per_bundle'),
             Column::make(__('resources.home.prices'), 'prices', 'price_qrk'),
             Column::make(__('resources.home.avg_prices'), 'avg_prices', 'price_qrk'),
 
