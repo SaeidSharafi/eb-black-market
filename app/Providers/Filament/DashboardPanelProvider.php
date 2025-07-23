@@ -60,6 +60,9 @@ class DashboardPanelProvider extends PanelProvider
             )
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->emailVerification()
+            ->passwordReset()
+            ->registration();
     }
 }
