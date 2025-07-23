@@ -87,10 +87,6 @@ class ItemResource extends Resource
         ];
     }
 
-    public static function canAccess(): bool
-    {
-        return auth()->user()?->is_super_admin;
-    }
 
     public static function getPages(): array
     {
