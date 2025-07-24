@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'expand' => [
+        'api_key' => env('EXPAND_API_KEY'),
+        'dex_id' => 2300, // The dexId for STON.fi
+    ],
+
 ];

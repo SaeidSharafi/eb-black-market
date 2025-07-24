@@ -21,7 +21,7 @@ class UpdateRatesCommand extends Command
 
     public function getTokenPrice(string $contract_address,int $deimals = 9 ): float|int
     {
-        $apiKey = env('EXPAND_API_KEY');
+        $apiKey =config('services.expand.api_key');
 
         if (!$apiKey) {
             throw new \RuntimeException('EXPAND_API_KEY is not set in the environment variables.');
@@ -29,7 +29,7 @@ class UpdateRatesCommand extends Command
 
         // Define API parameters
         $expandApiUrl = 'https://api.expand.network/dex/getprice';
-        $dexId = 2300; // The dexId for STON.fi. [1]
+        $dexId = config('services.expand.dex_id'); // The dexId for STON.fi. [1]
 
         // Official Jetton address for USDT on the TON network. [2]
         $usdtAddress = 'EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs';

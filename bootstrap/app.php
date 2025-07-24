@@ -17,7 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withSchedule(function (Schedule $schedule) {
-        $schedule->command('app:update-item-aggregates')->hourly();
+            $schedule->command('app:update-item-aggregates')->hourly();
+            $schedule->command('update:rates')->hourly();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
