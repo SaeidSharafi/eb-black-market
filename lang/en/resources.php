@@ -24,7 +24,7 @@ return [
             'seller' => 'Seller',
             'telegram' => 'Telegram',
             'quantity' => 'Quantity',
-            'quantity_per_bundle' => 'Quantity per Bundle',
+            'quantity_per_bundle' => 'Quantity per Purchase',
             'image' => 'Image',
             'price_qrk' => 'Price QRK',
             'price_not' => 'Price NOT',

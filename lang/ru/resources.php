@@ -24,7 +24,7 @@ return [
             'seller' => 'Продавец',
             'telegram' => 'Телеграм',
             'quantity' => 'Количество',
-            'quantity_per_bundle' => 'Кол-во в упаковке',
+            'quantity_per_bundle' => 'Кол-во в покупке',
             'image' => 'Изображение',
             'price_qrk' => 'Цена QRK',
             'price_not' => 'Цена NOT',
