@@ -17,7 +17,7 @@ class MarketListing extends Model
             'item_id',
             'user_id',
             'quantity',
-            'quintity_per_bundle',
+            'quantity_per_bundle',
             'price',
             'status',
             'price_qrk',
@@ -31,7 +31,7 @@ class MarketListing extends Model
             'item_id'             => 'integer',
             'user_id'             => 'integer',
             'quantity'            => 'integer',
-            'quintity_per_bundle' => 'integer',
+            'quantity_per_bundle' => 'integer',
             'price'               => 'float',
         ];
 

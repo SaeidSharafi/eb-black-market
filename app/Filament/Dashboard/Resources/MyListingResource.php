@@ -63,7 +63,7 @@ class MyListingResource extends Resource
                         ->default(1)
                         ->required(),
 
-                    Forms\Components\TextInput::make('quantity_per_bundle') // Corrected typo
+                    Forms\Components\TextInput::make('quantity_per_bundle')
                     ->label(__('resources.market_listings.fields.quantity_per_bundle'))
                         ->numeric()
                         ->default(1)
@@ -115,7 +115,7 @@ class MyListingResource extends Resource
                 Tables\Columns\TextColumn::make('quantity')
                     ->label(__('resources.market_listings.fields.quantity'))
                     ->sortable(),
-                Tables\Columns\TextColumn::make('quintity_per_bundle')
+                Tables\Columns\TextColumn::make('quantity_per_bundle')
                     ->label(__('resources.market_listings.fields.quantity_per_bundle')),
                 Tables\Columns\TextColumn::make('price_qrk')->label(__('resources.market_listings.fields.price_qrk'))->money('QRK')->sortable()->toggleable(),
                 Tables\Columns\TextColumn::make('price_not')->label(__('resources.market_listings.fields.price_not'))->money('NOT')->sortable()->toggleable(),

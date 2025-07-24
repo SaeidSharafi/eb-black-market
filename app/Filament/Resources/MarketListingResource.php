@@ -127,7 +127,7 @@ class MarketListingResource extends Resource
                 Tables\Columns\TextColumn::make('quantity')
                     ->label(__('resources.market_listings.fields.quantity'))
                     ->sortable(),
-                Tables\Columns\TextColumn::make('quintity_per_bundle')
+                Tables\Columns\TextColumn::make('quantity_per_bundle')
                     ->label(__('resources.market_listings.fields.quantity_per_bundle')),
                 Tables\Columns\TextColumn::make('price_qrk')->label(__('resources.market_listings.fields.price_qrk'))
                     ->money('QRK')->sortable()->toggleable(),

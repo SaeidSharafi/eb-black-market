@@ -19,7 +19,7 @@ class MarketListingFactory extends Factory
         return [
             'user_id'             => User::factory(),
             'quantity'            => $bundle ? random_int(50, 500) : random_int(1, 3),
-            'quintity_per_bundle' => $bundle ? $this->faker->randomElement([
+            'quantity_per_bundle' => $bundle ? $this->faker->randomElement([
                 10, 20, 50, 100, 200, 500, 1000
             ]) : 1,
             'status'              => $this->faker->randomElement(ListinStatusEnum::getAllValues()),
