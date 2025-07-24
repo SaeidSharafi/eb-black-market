@@ -122,7 +122,7 @@
 
             <div class="text-center mt-12">
                 <a
-                    href="/listing-page-url"
+                    href="{{route('market-listings.index')}}"
                     class="text-yellow-400 hover:text-yellow-300 font-semibold transition"
                 >
                     {{ __("resources.home.view_all_listings") }} &rarr;
