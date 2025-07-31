@@ -19,7 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withSchedule(function (Schedule $schedule) {
         $schedule->command('app:update-item-aggregates')->hourly();
         $schedule->command('update:rates')->hourly();
-        Schedule::command('telescope:prune')->weekly();
+        $schedule->command('telescope:prune')->weekly();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
