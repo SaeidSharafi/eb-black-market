@@ -28,7 +28,7 @@ return [
      | Show flags on the language selector
      |
      */
-    'show_flags' => true,
+    'show_flags' => false,
 
     /*
     |--------------------------------------------------------------------------
