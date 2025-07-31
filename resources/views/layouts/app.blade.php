@@ -35,51 +35,7 @@
             @include('layouts.footer')
         </div>
         @livewireScripts
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const langButton = document.getElementById(
-                    "lang-switcher-button"
-                );
-                const langDropdown = document.getElementById(
-                    "lang-switcher-dropdown"
-                );
+        @stack('scripts')
 
-                if (langButton) {
-                    langButton.addEventListener("click", function (event) {
-                        event.stopPropagation();
-                        langDropdown.classList.toggle("hidden");
-                    });
-                }
-
-                const coffeeButton = document.getElementById("coffee-button");
-                const coffeeDropdown =
-                    document.getElementById("coffee-dropdown");
-
-                if (coffeeButton) {
-                    coffeeButton.addEventListener("click", function (event) {
-                        event.stopPropagation();
-                        coffeeDropdown.classList.toggle("hidden");
-                    });
-                }
-
-                document.addEventListener("click", function (event) {
-                    if (
-                        langButton &&
-                        !langButton.contains(event.target) &&
-                        !langDropdown.contains(event.target)
-                    ) {
-                        langDropdown.classList.add("hidden");
-                    }
-
-                    if (
-                        coffeeButton &&
-                        !coffeeButton.contains(event.target) &&
-                        !coffeeDropdown.contains(event.target)
-                    ) {
-                        coffeeDropdown.classList.add("hidden");
-                    }
-                });
-            });
-        </script>
     </body>
 </html>
