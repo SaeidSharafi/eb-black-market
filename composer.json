@@ -10,6 +10,7 @@
         "filament/filament": "^3.3",
         "filament/spatie-laravel-translatable-plugin": "^3.2",
         "laravel/framework": "^12.0",
+        "laravel/telescope": "^5.10",
         "laravel/tinker": "^2.10.1",
         "power-components/livewire-powergrid": "^6.4",
         "spatie/laravel-translatable": "^6.11",
