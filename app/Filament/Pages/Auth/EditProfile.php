@@ -16,13 +16,20 @@ class EditProfile extends BaseEditProfileAlias
                 \Filament\Forms\Components\TextInput::make('telegram_username')
                     ->label('Telegram Username')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                ,
                 $this->getNameFormComponent(),
                 $this->getEmailFormComponent(),
                 $this->getPasswordFormComponent(),
                 $this->getPasswordConfirmationFormComponent(),
             ])
             ;
+    }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $data['telegram_username'] = str_replace('@', '', $data['telegram_username']);
+        return parent::mutateFormDataBeforeSave($data);
     }
 
     protected function getRedirectUrl(): ?string
