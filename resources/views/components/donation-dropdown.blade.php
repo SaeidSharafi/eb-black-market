@@ -1,7 +1,7 @@
 @props(['isMobile' => false])
 
 <div
-    class="relative {{ $isMobile ? 'px-4 pt-2' : '' }}"
+    class="relative {{ $isMobile ? 'pt-2' : '' }}"
     @click.away="{{ $isMobile ? 'coffeeOpenMobile' : 'coffeeOpen' }} = false"
 >
     <button
@@ -27,7 +27,7 @@
                 d="M4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H4zm12 14H4V4h12v12z"
             />
         </svg>
-        {{ __("Buy me a coffee") }}
+        {{ __("resources.home.buy_me_a_coffee") }}
         @if (!$isMobile)
         <svg
             class="w-4 h-4 ml-1"
@@ -64,13 +64,14 @@
         x-show="{{ $isMobile ? 'coffeeOpenMobile' : 'coffeeOpen' }}"
         style="display: none"
         class="{{
-            $isMobile ? 'mt-2 w-full' : 'absolute right-0 mt-2 w-64'
-        }} bg-gray-700 rounded-md shadow-lg py-1 z-50"
+            $isMobile ? 'mt-2 w-full px-2' : 'absolute right-0 mt-2 w-64'
+        }} py-1 z-50"
         x-transition
     >
+        <div class="bg-gray-700 rounded-md shadow-lg ">
         <div class="px-4 py-3">
             <p class="text-sm text-gray-200 font-semibold">
-                {{ __("Support the project") }}
+                {{ __("resources.home.support_the_project") }}
             </p>
             <p class="text-xs text-gray-400 mt-1">
                 {{
@@ -91,5 +92,6 @@
             address="0xfb0093224143574f98edb7bd6fc86726a18918d9"
             :is-mobile="$isMobile"
         />
+    </div>
     </div>
 </div>

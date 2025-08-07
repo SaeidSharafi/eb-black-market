@@ -64,7 +64,7 @@
                 class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 hover:border-gray-300 focus:outline-none focus:text-white focus:bg-gray-700 focus:border-gray-300 transition"
                 href="{{ route('market-listings.index') }}"
             >
-                {{ __("All Listings") }}
+                {{ __("resources.home.all_listings") }}
             </a>
             @auth
             <a

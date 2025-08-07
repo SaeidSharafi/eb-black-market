@@ -112,6 +112,9 @@ final class MarketListingTable extends PowerGridComponent
     {
         $locale = app()->getLocale();
         return [
+            Column::make(__('resources.home.seller_telegram'), 'seller', 'users.telegram_username')
+                ->sortable()
+                ->searchable(),
             Column::make(__('resources.home.item_image'), 'item_image')
                 ->bodyAttribute('!p-2 w-20'),
 
@@ -122,13 +125,12 @@ final class MarketListingTable extends PowerGridComponent
                 ->sortable(),
             Column::make(__('resources.market_listings.fields.quantity'), 'quantity', 'quantity'),
             Column::make(__('resources.market_listings.fields.quantity_per_bundle'), 'quantity_per_bundle',
-                'quantity_per_bundle'),
+                'quantity_per_bundle')
+            ,
             Column::make(__('resources.home.prices'), 'prices', 'price_qrk'),
             Column::make(__('resources.home.avg_prices'), 'avg_prices', 'price_qrk'),
 
-            Column::make(__('resources.home.seller_telegram'), 'seller', 'users.telegram_username')
-                ->sortable()
-                ->searchable(),
+
 
             Column::make(__('resources.home.listed'), 'created_at_formatted', 'created_at')
                 ->sortable(),
