@@ -52,6 +52,7 @@
         }
     @endphp
     <td
+            data-label="{{ $column->title }}"
         @class([
             theme_style($theme, 'table.body.td'),
             data_get($column, 'bodyClass'),

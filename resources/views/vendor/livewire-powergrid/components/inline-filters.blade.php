@@ -33,11 +33,16 @@
         @foreach ($columns as $column)
             @php
                 $filterClass = str(data_get($column, 'filters.className'));
+                $class = data_get($column, 'filters.className') ? '' : '!hidden md:!table-cell';
             @endphp
             <td
+                    data-f="{{empty($filterClass)}}"
+                    data-test="{{$class}}"
+                    data-label="{{ $column->title }}"
                 @class([
                     theme_style($theme, 'table.body.td'),
                     theme_style($theme, 'table.body.tdFilters'),
+                    $class
                 ])
                 wire:key="column-filter-{{ data_get($column, 'field') }}"
                 @style([

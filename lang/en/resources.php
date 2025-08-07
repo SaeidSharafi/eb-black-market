@@ -65,7 +65,7 @@ return [
         'prices' => 'Prices',
         'avg_prices' => 'Average Prices',
         'usd_price' => 'USD Price',
-        'seller_telegram' => 'Seller (Telegram)',
+        'seller_telegram' => 'Seller (TG)',
         'listed' => 'Listed',
         'unknown' => 'Unknown',
         'na' => 'N/A',

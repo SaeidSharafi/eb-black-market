@@ -26,6 +26,7 @@ final class MarketListingTable extends PowerGridComponent
                 ->showPerPage()
                 ->showRecordCount(),
 
+
         ];
     }
 

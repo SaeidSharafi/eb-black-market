@@ -65,7 +65,7 @@ return [
         'prices' => 'Цены',
         'avg_prices' => 'Средние цены',
         'usd_price' => 'Цена в USD',
-        'seller_telegram' => 'Продавец (Telegram)',
+        'seller_telegram' => 'Продавец (TG)',
         'listed' => 'Размещено',
         'unknown' => 'Неизвестно',
         'na' => 'Н/Д',

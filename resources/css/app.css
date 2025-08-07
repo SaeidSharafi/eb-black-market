@@ -32,3 +32,70 @@
     --font-sans: 'Titillium Web', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+@media (max-width: 768px) {
+
+ /* Target the PowerGrid table component */
+ .power-grid-table {
+  /* Hide the original table header, we don't need it */
+
+  thead {
+   display: none;
+  }
+
+  /* Make the table, body, and rows behave like blocks, not table elements */
+
+  table, tbody, tr {
+   display: block;
+   width: 100%;
+  }
+
+  /* Style the rows like cards */
+
+  tr {
+   border: 1px solid #e2e8f0; /* light gray border */
+   border-radius: 0.5rem; /* rounded corners */
+   margin-bottom: 1rem; /* space between cards */
+   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* subtle shadow */
+  }
+
+  .dark tr {
+   border-color: #374151; /* dark mode border */
+  }
+
+  /* Make each cell a block, taking up the full width */
+
+  td {
+   display: flex;
+   justify-content: right;
+   width: 100%;
+   text-align: right; /* Align value to the right */
+   position: relative;
+   padding-left: 50%; /* Create space for the label on the left */
+   padding-top: 0.75rem;
+   padding-bottom: 0.75rem;
+   border-bottom: 1px solid #e2e8f014; /* separator between "fields" */
+  }
+
+  .dark td {
+   border-color: #4b5563;
+  }
+
+  tr td:last-child {
+   border-bottom: none; /* Remove border from the last cell in a card */
+  }
+
+  /* The Magic: Create the label using the data-label attribute */
+
+  td::before {
+   content: attr(data-label); /* Use the content from the data-label attribute */
+   position: absolute;
+   left: 0;
+   width: 45%; /* Width of the label */
+   padding-left: 1rem;
+   padding-right: 1rem;
+   text-align: left;
+   font-weight: bold;
+  }
+ }
+}
