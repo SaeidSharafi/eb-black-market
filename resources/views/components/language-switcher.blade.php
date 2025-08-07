@@ -1,7 +1,7 @@
 @props(['isMobile' => false])
 
 <div
-    class="relative {{ $isMobile ? 'md:hidden' : '' }}"
+    class="relative {{ $isMobile ? 'md:hidden' : 'hidden md:block' }}"
     @click.away="langOpen = false"
 >
     <button
