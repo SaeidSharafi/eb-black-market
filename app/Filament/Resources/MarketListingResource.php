@@ -14,6 +14,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class MarketListingResource extends Resource
 {
@@ -52,19 +53,20 @@ class MarketListingResource extends Resource
                         ->allowHtml()
                         ->required()
                         ->searchable()
+                        ->options(
+                            Item::all()->mapWithKeys(function ($item) {
+                                return [$item->getKey() => static::getCleanOptionString($item)];
+                            })
+                        )
                         ->getSearchResultsUsing(function (string $search) use ($locale) {
-                            $items
-                                = Item::whereRaw("LOWER(CAST(JSON_UNQUOTE(JSON_EXTRACT(items.name, '$.$locale')) AS CHAR)) LIKE ?",
-                                ['%'.$search.'%'])->get();
-
+                            $lowerCaseSearchTerm = '%' . strtolower($search) . '%';
+                            $items = Item::whereRaw(
+                                "JSON_SEARCH(LOWER(JSON_EXTRACT(name, '$.*')), 'one', ?) IS NOT NULL",
+                                [$lowerCaseSearchTerm]
+                            )->get();
                             return $items->mapWithKeys(function ($item) {
                                 return [$item->getKey() => static::getCleanOptionString($item)];
                             })->toArray();
-                        })
-                        ->getOptionLabelUsing(function ($value): string {
-                            $item = Item::find($value);
-
-                            return static::getCleanOptionString($item);
                         }),
                     Forms\Components\TextInput::make('quantity')
                         ->label(__('resources.market_listings.fields.quantity'))
