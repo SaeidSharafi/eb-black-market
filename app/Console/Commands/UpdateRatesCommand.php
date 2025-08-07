@@ -14,6 +14,9 @@ class UpdateRatesCommand extends Command
 
     public function handle(): void
     {
+        cache()->forget('ton_usdt_price');
+        cache()->forget('qrk_usdt_price');
+        cache()->forget('not_usdt_price');
         cache()->rememberForever('ton_usdt_price',fn() => $this->getTokenPrice('EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c'));
         cache()->rememberForever('qrk_usdt_price',fn() => $this->getTokenPrice('EQDPcsUQojf-CrUnwBvToqVO4ssGokM7rU_1Xcor9AwBIALh'));
         cache()->rememberForever('not_usdt_price',fn() => $this->getTokenPrice('EQAvlWFDxGF2lXm67y4yzC17wYKD9A0guwPkMs1gOsM__NOT'));
