@@ -77,7 +77,7 @@ final class MarketListingTable extends PowerGridComponent
                     $prices .= $this->formatPrice('NOT', $listing->price_qrk);
                 };
                 if ($listing->price_ton) {
-                    $prices .= $this->formatPrice('TON', $listing->price_qrk);
+                    $prices .= $this->formatPrice('TON', $listing->price_ton);
                 };
                 if ($listing->price_usd) {
                     $prices .= $this->formatPrice('USD', $listing->price_qrk);
