@@ -2,19 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MarketListing;
+use App\Services\HomeService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 class HomeController extends Controller
 {
+    protected $homeService;
+
+    public function __construct(HomeService $homeService)
+    {
+        $this->homeService = $homeService;
+    }
+
     public function index()
     {
-        $listings = MarketListing::with(['item', 'user'])
-            ->orderByDesc('created_at')
-            ->take(10)
-            ->get();
+        $listings = $this->homeService->getLatestListings();
+        $heroData = $this->homeService->getHeroData();
+        $listingsData = $this->homeService->getListingsData();
+        $faqData = $this->homeService->getFaqData();
 
-        return view('home', compact('listings'));
+        return view('home', compact('listings', 'heroData', 'listingsData', 'faqData'));
     }
 }

@@ -45,13 +45,16 @@ return [
     // Home page localization
     'home' => [
         'title' => 'Empires Battle: Black Market',
-        'subtitle' => 'A community-driven marketplace for in-game items. Find the best deals and connect with fellow players.',
+        'home' => 'Home',
+        'sitemap' => 'Sitemap',
+        'dashboard' => 'Dashboard',
+        'subtitle' => 'A community listing platform for Empires Battle: World of Steam in-game items. List your items and connect with fellow players.',
         'go_to_dashboard' => 'Go to Dashboard',
         'login' => 'Login',
-        'slider_trade_title' => 'Trade Unique NFT Items',
-        'slider_trade_desc' => 'Buy, sell, and collect rare items from the world of Empires Battle!',
-        'slider_earn_title' => 'Earn While You Play',
-        'slider_earn_desc' => 'List your items and earn tokens as you play and win battles.',
+        'slider_trade_title' => 'List Your In-Game Items',
+        'slider_trade_desc' => 'List items from Empires Battle: World of Steam and connect with other players!',
+        'slider_earn_title' => 'Connect with Players',
+        'slider_earn_desc' => 'List your items and let other players contact you to arrange trades in-game.',
         'latest_listings' => 'Latest Listings',
         'explore_listings' => 'Explore Listings',
         'view_all_listings' => 'View All Listings',
@@ -72,9 +75,34 @@ return [
         'price_ton' => 'TON: :value',
         'price_usd' => 'USD: :value',
         'contact_seller' => 'Contact Seller',
-        'disclaimer' => 'This is a fan-made website and is not affiliated with the official game developers. All transactions are handled directly between players.',
-        'footer_disclaimer' => 'This site is a personal project and not for commercial use.',
+        'disclaimer' => 'This is a fan-made listing platform and is not affiliated with the official Empires Battle: World of Steam developers. All trades happen directly between players within the game.',
+        'footer_disclaimer' => 'This site is a personal project for listing in-game items only.',
         'contact_selller' => 'Contact Seller',
+        'footer_made_with' => 'Made with ❤️ for the Empires Battle community',
+        'donation' => 'If you find this project helpful, consider a small donation.',
+        // FAQ Section
+        'faq' => [
+            'title' => 'Frequently Asked Questions',
+            'subtitle' => 'Everything you need to know about listing items on Empires Market',
+            'questions' => [
+                'what_is' => [
+                    'question' => 'What is Empires Market?',
+                    'answer' => 'Empires Market is a community listing platform for Empires Battle: World of Steam players. You can list your in-game items here, and interested players will contact you via Telegram to arrange trades within the game.'
+                ],
+                'how_to_sell' => [
+                    'question' => 'How do I list my items?',
+                    'answer' => 'Create an account, go to your dashboard, and create a listing for your in-game items. Make sure to set your Telegram username so interested players can contact you directly to arrange the trade in-game.'
+                ],
+                'payment' => [
+                    'question' => 'How do payments work?',
+                    'answer' => 'This website is only for listing items. All trades, negotiations, and payments happen directly between players through Telegram and within the Empires Battle: World of game itself. We do not handle any payments or transactions.'
+                ],
+                'safety' => [
+                    'question' => 'Is it safe to trade?',
+                    'answer' => 'We only provide a listing platform. All actual trading happens within the Empires Battle game between players. Always be cautious when trading with others.'
+                ]
+            ]
+        ],
     ],
 ];
 
