@@ -95,8 +95,11 @@ final class MarketListingTable extends PowerGridComponent
             ->add('seller', function (MarketListing $listing) {
                 if ($listing->user && $listing->user->telegram_username) {
                     $username = e($listing->user->telegram_username);
+                    $contactSeller = __('resources.home.contact_seller');
                     return Blade::render(<<<HTML
-                        <a href="https://t.me/{$username}" target="_blank" class="text-blue-400 hover:underline">@{$username}</a>
+                        <a rel="noopener noreferrer"
+                                    class="w-full text-center block bg-yellow-600 hover:bg-yellow-700 text-black font-bold py-1 px-1 rounded-lg transition text-sm"
+                                    href="https://t.me/{$username}" target="_blank" >{$contactSeller}</a>
                     HTML
                     );
                 }
@@ -111,9 +114,9 @@ final class MarketListingTable extends PowerGridComponent
             Column::make(__('resources.home.item_image'), 'item_image')
                 ->bodyAttribute('!p-2 w-20'),
 
-            Column::make(__('resources.home.item_name'), 'item_name', 'items.name->'.$locale)
+            Column::make(__('resources.home.item_name'), 'item_name', 'items.name')
                 ->sortable()
-                ->searchableRaw("LOWER(CAST(JSON_UNQUOTE(JSON_EXTRACT(items.name, '$.$locale')) AS CHAR)) LIKE ?"),
+                ->searchableRaw("JSON_SEARCH(LOWER(JSON_EXTRACT(items.name, '$.*')), 'one', LOWER(?)) IS NOT NULL"),
             Column::make(__('resources.home.item_type'), 'item_type', 'items.type')
                 ->sortable(),
             Column::make(__('resources.market_listings.fields.quantity'), 'quantity', 'quantity'),
