@@ -36,9 +36,8 @@
                 $class = data_get($column, 'filters.className') ? '' : '!hidden md:!table-cell';
             @endphp
             <td
-                    data-f="{{empty($filterClass)}}"
                     data-test="{{$class}}"
-                    data-label="{{ $column->title }}"
+                    data-label="{{ data_get($column, 'title') }}"
                 @class([
                     theme_style($theme, 'table.body.td'),
                     theme_style($theme, 'table.body.tdFilters'),
