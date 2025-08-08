@@ -59,9 +59,9 @@ class MarketListingResource extends Resource
                             })
                         )
                         ->getSearchResultsUsing(function (string $search) use ($locale) {
-                            $lowerCaseSearchTerm = '%' . strtolower($search) . '%';
+                            $lowerCaseSearchTerm = '%' . $search . '%';
                             $items = Item::whereRaw(
-                                "JSON_SEARCH(LOWER(JSON_EXTRACT(name, '$.*')), 'one', ?) IS NOT NULL",
+                                "JSON_SEARCH(LOWER(JSON_EXTRACT(name, '$.*')), 'one', LOWER(?)) IS NOT NULL",
                                 [$lowerCaseSearchTerm]
                             )->get();
                             return $items->mapWithKeys(function ($item) {
