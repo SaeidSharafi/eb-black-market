@@ -6,6 +6,7 @@ use App\Enum\ItemTypeEnum;
 use App\Models\MarketListing;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\DB;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Facades\PowerGrid;
@@ -16,7 +17,10 @@ final class MarketListingTable extends PowerGridComponent
 {
     public string $tableName = 'market-listing-table-kbja9x-table';
     public bool $showFilters = true;
+    public string $sortField = 'created_at';
 
+    public string $sortDirection = 'desc';
+    public bool $measurePerformance = true;
     public function setUp(): array
     {
         return [
@@ -26,17 +30,40 @@ final class MarketListingTable extends PowerGridComponent
                 ->showPerPage()
                 ->showRecordCount(),
 
-
         ];
     }
 
     public function datasource(): Builder
     {
+        $tonPrice = (float) cache()->get('ton_usdt_price', 0);
+        $qrkPrice = (float) cache()->get('qrk_usdt_price', 0);
+        $notPrice = (float) cache()->get('not_usdt_price', 0);
+        $usdPrice = 1.0; // USD to USDT is 1:1
+
         return MarketListing::query()
             ->with(['item', 'user'])
             ->join('items', 'market_listings.item_id', '=', 'items.id')
             ->join('users', 'market_listings.user_id', '=', 'users.id')
-            ->select('market_listings.*', 'users.telegram_username');
+            ->select(
+                'market_listings.*',
+                'users.telegram_username',
+                DB::raw("
+            (
+                (COALESCE(price_ton, 0) * {$tonPrice}) +
+                (COALESCE(price_qrk, 0) * {$qrkPrice}) +
+                (COALESCE(price_not, 0) * {$notPrice}) +
+                (COALESCE(price_usd, 0) * {$usdPrice})
+            )
+            /
+            NULLIF(
+                (CASE WHEN price_ton > 0 THEN 1 ELSE 0 END) +
+                (CASE WHEN price_qrk > 0 THEN 1 ELSE 0 END) +
+                (CASE WHEN price_not > 0 THEN 1 ELSE 0 END) +
+                (CASE WHEN price_usd > 0 THEN 1 ELSE 0 END),
+                0
+            )
+             as avg_price_usdt")
+            );
     }
 
     public function relationSearch(): array
@@ -49,13 +76,13 @@ final class MarketListingTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
-            ->add('item_name', function(MarketListing $listing) {
+            ->add('item_name', function (MarketListing $listing) {
                 $name = $listing->item->getTranslation('name', app()->getLocale());
                 return Blade::render(<<<HTML
                         <span class="whitespace-break-spaces">{$name}</span>
                     HTML
                 );
-               } )
+            })
             ->add('item_type', fn(MarketListing $listing) => __('enums.ItemTypeEnum.'.$listing->item->type))
             ->add('created_at_formatted', fn(MarketListing $listing) => $listing->created_at->diffForHumans())
             ->add('item_image', function (MarketListing $listing) {
@@ -76,7 +103,7 @@ final class MarketListingTable extends PowerGridComponent
             })
             ->add('prices', function (MarketListing $listing) {
                 $startDiv = '<div class="flex flex-col">';
-                $prices= "";
+                $prices = "";
                 if ($listing->price_qrk) {
                     $prices .= $this->formatPrice('QRK', $listing->price_qrk);
                 }
@@ -97,7 +124,13 @@ final class MarketListingTable extends PowerGridComponent
                 return $startDiv.$prices.$endDiv;
             })
             ->add('avg_prices', function (MarketListing $listing) {
-                return $this->getAveragePriceInUSDT($listing);
+                $avgPrice = (float) $listing->avg_price_usdt;
+                if ($avgPrice <= 0) {
+                    return '<span class="text-gray-400">'.__('resources.home.na').'</span>';
+                }
+
+                return "<span>".number_format($avgPrice, 2)
+                    ."<span class='font-bold text-green-400'> USDT</span></span>";
             })
             ->add('seller', function (MarketListing $listing) {
                 if ($listing->user && $listing->user->telegram_username) {
@@ -132,12 +165,12 @@ final class MarketListingTable extends PowerGridComponent
                 'quantity_per_bundle')
             ,
             Column::make(__('resources.home.prices'), 'prices', 'price_qrk'),
-            Column::make(__('resources.home.avg_prices'), 'avg_prices', 'price_qrk'),
-
-
+            Column::make(__('resources.home.avg_prices'), 'avg_prices', 'avg_price_usdt')
+                ->sortable(),
 
             Column::make(__('resources.home.listed'), 'created_at_formatted', 'created_at')
                 ->bodyAttribute('text-xs text-gray-500')
+                ->enableSort()
                 ->sortable(),
         ];
     }
@@ -145,7 +178,7 @@ final class MarketListingTable extends PowerGridComponent
     public function filters(): array
     {
         return [
-            Filter::select('items.type', __('resources.home.item_type'))
+            Filter::select('item_type','items.type' )
                 ->dataSource(ItemTypeEnum::getValueLabel())
                 ->optionLabel('label')
                 ->optionValue('value'),
@@ -197,7 +230,7 @@ final class MarketListingTable extends PowerGridComponent
         return '<div class="inline-block">'
             .$label
             .number_format($price, 2)
-            . $toUsd
+            .$toUsd
             ."</div>";
 
     }
