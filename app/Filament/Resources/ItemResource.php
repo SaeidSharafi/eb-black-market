@@ -57,6 +57,7 @@ class ItemResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('type')
                     ->label(__('resources.items.fields.type'))
+                    ->formatStateUsing(fn (string $state): string => ItemTypeEnum::tryFrom($state)?->translate())
                     ->sortable(),
                 Tables\Columns\TextColumn::make('description')
                     ->label(__('resources.items.fields.description'))
