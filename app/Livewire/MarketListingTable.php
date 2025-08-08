@@ -93,9 +93,9 @@ final class MarketListingTable extends PowerGridComponent
                 if ($listing->item->image) {
                     $imageUrl = asset('storage/'.$listing->item->image);
                     return Blade::render(<<<HTML
-                    <div class="{$listing->item->rarity->getRarityColor()} w-16 h-16 p-2 rounded-lg relative overflow-hidden">
-                    <span class="text-xs absolute bottom-0 left-0 w-full text-center bg-black/75 text-white {$hideRarityTag} px-1">{$listing->item->rarity->translate()}</span>
-                        <img src="{$imageUrl}" alt="{$itemName}" class="object-fill h-full w-full ">
+                    <div class="{$listing->item->rarity->getRarityColor()} w-18 h-18 p-2 rounded-lg relative overflow-hidden flex items-center justify-center">
+                    <span class="text-tiny absolute bottom-0 left-0 w-full text-center bg-black/75 text-white {$hideRarityTag}">{$listing->item->rarity->translate()}</span>
+                        <img src="{$imageUrl}" alt="{$itemName}" class="object-fill h-full ">
                     </div>
                     HTML
                     );

@@ -21,6 +21,10 @@
  --color-pg-primary-800: oklch(0.269 0 0);
  --color-pg-primary-900: oklch(0.205 0 0);
  --color-pg-primary-950: oklch(0.145 0 0);
+ --text-tiny: 0.625rem;
+ --text-tiny--line-height: 1.2rem;
+ --text-tiny--letter-spacing: 0.025rem;
+ --text-tiny--font-weight: 500;
 }
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
