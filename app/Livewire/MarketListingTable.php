@@ -87,16 +87,23 @@ final class MarketListingTable extends PowerGridComponent
             ->add('created_at_formatted', fn(MarketListing $listing) => $listing->created_at->diffForHumans())
             ->add('item_image', function (MarketListing $listing) {
                 $itemName = e($listing->item->getTranslation('name', app()->getLocale()));
+                $hideRarityTag = ItemTypeEnum::tryFrom($listing->item->type)?->isEquipment() ? 'inline-block' : 'hidden';
+
                 if ($listing->item->image) {
                     $imageUrl = asset('storage/'.$listing->item->image);
                     return Blade::render(<<<HTML
-                    <div class="{$listing->item->rarity->getRarityColor()} w-16 h-16 p-2 rounded-lg">
+                    <div class="{$listing->item->rarity->getRarityColor()} w-16 h-16 p-2 rounded-lg relative overflow-hidden">
+                    <span class="text-xs absolute bottom-0 left-0 w-full text-center bg-black/75 text-white {$hideRarityTag} px-1">{$listing->item->rarity->translate()}</span>
                         <img src="{$imageUrl}" alt="{$itemName}" class="object-fill h-full w-full ">
                     </div>
                     HTML
                     );
                 }
-                return Blade::render(<<<'HTML'
+                return Blade::render(<<<HTML
+                <div class="{$listing->item->rarity->getRarityColor()} w-16 h-16 p-2 rounded-lg relative overflow-hidden">
+                    <span class="text-xs absolute bottom-0 left-0 w-full text-center bg-black/75 text-white px-1 {$hideRarityTag}">{$listing->item->rarity->translate()}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l-1.586-1.586a2 2 0 00-2.828 0L6 18" /></svg>
+                    </div>
                     <div class="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded shadow flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l-1.586-1.586a2 2 0 00-2.828 0L6 18" /></svg>
                     </div>

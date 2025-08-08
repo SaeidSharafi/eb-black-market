@@ -23,6 +23,13 @@ enum ItemTypeEnum: string
     case PART = 'part';
     case RECIPE = 'recipe';
 
+    public function isEquipment()
+    {
+        return match ($this) {
+            self::WEAPON, self::PANTS, self::GLOVES, self::BODY, self::HELMET, self::BOOTS, self::AMPILIER, self::ACCESSORY => true,
+            default => false,
+        };
+    }
 
 
 }
