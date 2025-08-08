@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Enum\ItemRarityEnum;
 use App\Enum\ItemTypeEnum;
 use App\Models\MarketListing;
 use Illuminate\Database\Eloquent\Builder;
@@ -161,7 +162,7 @@ final class MarketListingTable extends PowerGridComponent
         return [
             Column::make('', 'seller', 'users.telegram_username')
                 ->searchable(),
-            Column::make(__('resources.home.item_image'), 'item_image')
+            Column::make(__('resources.items.fields.rarity'), 'item_image')
                 ->bodyAttribute('w-20'),
 
             Column::make(__('resources.home.item_name'), 'item_name', 'items.name')
@@ -189,6 +190,10 @@ final class MarketListingTable extends PowerGridComponent
         return [
             Filter::select('item_type','items.type' )
                 ->dataSource(ItemTypeEnum::getValueLabel())
+                ->optionLabel('label')
+                ->optionValue('value'),
+            Filter::select('item_image','items.rarity' )
+                ->dataSource(ItemRarityEnum::getValueLabel())
                 ->optionLabel('label')
                 ->optionValue('value'),
         ];
