@@ -12,6 +12,7 @@ class ItemSeeder extends Seeder
         $items = [
             [
                 'name'  => [
+                    'ru' => "Карманный Паромет 'Пшик-Х'",
                     'en' => 'Pocket Steamer Puff-x',
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -19,6 +20,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "ККМ 'Ритти'",
                     'en' => 'Ritti Cash Machine',
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -26,6 +28,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Лампа с Дастом",
                     'en' => 'Lamp With Dust',
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -33,6 +36,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Плащ из золотой кожи",
                     'en' => 'Golden Leather Cloak',
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -40,6 +44,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Медный рыцарский шлем",
                     'en' => 'Knight\'s Copper Helm',
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -47,6 +52,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Комбинезон Диггера",
                     'en' => "Digger's Jumpsuit",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -54,6 +60,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Сапоги Диггера",
                     'en' => "Digger's Boots",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -61,6 +68,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Перчатки Диггера",
                     'en' => "Digger's Gloves",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -68,6 +76,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Противогаз  Диггера",
                     'en' => "Digger's Gas Mask",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -75,6 +84,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Кирка Рудокопа",
                     'en' => "Miner's Pickaxe",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -82,6 +92,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Сюртук Начальника Шахты",
                     'en' => "Mine Boss's Coat",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -89,6 +100,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Каска Рудокопа",
                     'en' => "Miner's Helmet",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -96,6 +108,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Перчатки любящего сердца",
                     'en' => "Gloves of a Loving Heart",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -103,6 +116,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Бриджи Начальника Шахты",
                     'en' => "Mine Boss's Breeches",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -110,6 +124,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Ручная  Дрель",
                     'en' => "Hand Drill",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -117,6 +132,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Колотушка “Чик - Чик”",
                     'en' => "Snip-snip Club",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -124,6 +140,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Рапира Возмездия ",
                     'en' => "Rapier Of Retribution",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -131,6 +148,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Паровая Двустволка Ментона",
                     'en' => "Double-barreled Menton's Steam Rifle",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -138,6 +156,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Медный Револьвер “Сэмюэль”",
                     'en' => 'Copper Revolver “samuel”',
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -145,6 +164,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Бубен Духов Земли",
                     'en' => 'Earth Spirits Drum',
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -152,6 +172,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Вдоводел",
                     'en' => 'Widowmaker',
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -159,6 +180,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Кваркоруб",
                     'en' => 'Quark Cutter',
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -166,6 +188,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Флюровый Гладиус",
                     'en' => "Flur Gladius",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -173,6 +196,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Камзол Барона Самеди",
                     'en' => "Baron Samedi's Coat",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -180,6 +204,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Идеальный кристалл Флюра",
                     'en' => "Perfect flur crystal",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -187,6 +212,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Ботинки Гринча",
                     'en' => "Grinch's boots",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -194,6 +220,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Шлем Повелителя Тыкв",
                     'en' => "Pumpkin Lord Helmet",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -201,6 +228,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Штаны пасхального кролика",
                     'en' => "Easter bunny pants",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -208,6 +236,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Посох “Душа Кварка”",
                     'en' => "Staff 'Soul of Quark'",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -215,6 +244,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Перчатки со вставками",
                     'en' => "Gloves With Inserts",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -222,6 +252,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Болтливый Огурецострел",
                     'en' => "Talkative Cucumber Shooter",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -229,6 +260,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Топор железного дровосека",
                     'en' => "Tin Woodcutter's Axe",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -236,6 +268,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Тяжелая куртка",
                     'en' => "Heavy jacket",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -243,6 +276,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Паровой фонарик",
                     'en' => "Steam lantern",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -250,6 +284,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Подзорная труба",
                     'en' => "Spyglass",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -257,6 +292,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Наручные часы",
                     'en' => "Wristwatch",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -264,6 +300,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Гидравлические ботинки",
                     'en' => "Hydraulic Boots",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -271,6 +308,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Медное колесо",
                     'en' => "Copper Wheel",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -278,6 +316,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Доспех червя",
                     'en' => "Worm's Armor",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
@@ -285,14 +324,39 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Глаз подземного ужаса",
                     'en' => "Eye of Terror",
                 ],
                 'type'  => ItemTypeEnum::EQUIPMENT->value,
                 'image' => 'resources/images/items/eye_horror_1.webp',
             ],
-
             [
                 'name'  => [
+                    'ru' => "Правосудие земных недр",
+                    'en' => "Earth's Justice",
+                ],
+                'type'  => ItemTypeEnum::EQUIPMENT->value,
+                'image' => 'resources/images/items/revolver_justice_ert_1.webp',
+            ],
+            [
+                'name'  => [
+                    'ru' => "Граната — Хлопушка",
+                    'en' => "Grenade — Firecracker",
+                ],
+                'type'  => ItemTypeEnum::EQUIPMENT->value,
+                'image' => 'resources/images/items/grenade_petard_1.webp',
+            ],
+            [
+                'name'  => [
+                    'ru' => "Граната — Зеленая полянка",
+                    'en' => "Grenade — Green Meadow",
+                ],
+                'type'  => ItemTypeEnum::EQUIPMENT->value,
+                'image' => 'resources/images/items/grenade_green_1.webp',
+            ],
+            [
+                'name'  => [
+                    'ru' => "Лоскуток ткани",
                     'en' => "Scrap cloth",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
@@ -300,6 +364,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Кожаная заплатка",
                     'en' => "Leather patch",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
@@ -308,6 +373,7 @@ class ItemSeeder extends Seeder
             [
                 'name'  => [
                     'en' => "Nylon thread",
+                    'ru' => "Нейлоновая нить",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
                 'image' => 'resources/images/crafting_parts/cp_nylon_thread_1.webp',
@@ -315,6 +381,7 @@ class ItemSeeder extends Seeder
             [
                 'name'  => [
                     'en' => "Roll of thick leather",
+                    'ru' => "Рулон толстой кожи",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
                 'image' => 'resources/images/crafting_parts/cp_roll_leather_1.webp',
@@ -322,6 +389,7 @@ class ItemSeeder extends Seeder
             [
                 'name'  => [
                     'en' => "Roll of fabric",
+                    'ru' => "Рулон плотной ткани",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
                 'image' => 'resources/images/crafting_parts/cp_roll_cloth_1.webp',
@@ -329,6 +397,7 @@ class ItemSeeder extends Seeder
             [
                 'name'  => [
                     'en' => "Iron bracket",
+                    'ru' => "Железная скоба",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
                 'image' => 'resources/images/crafting_parts/cp_iron_bracket_1.webp',
@@ -336,12 +405,14 @@ class ItemSeeder extends Seeder
             [
                 'name'  => [
                     'en' => "Copper bracket",
+                    'ru' => "Медная скоба",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
                 'image' => 'resources/images/crafting_parts/cp_copper_bracket_1.webp',
             ],
             [
                 'name'  => [
+                    'ru' => "Медная проволока",
                     'en' => "Copper wire",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
@@ -349,6 +420,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Медный футляр",
                     'en' => "Copper case",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
@@ -356,6 +428,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Сапфировое стекло",
                     'en' => "Sapphire crystal",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
@@ -364,6 +437,7 @@ class ItemSeeder extends Seeder
             [
                 'name'  => [
                     'en' => "Rivet",
+                    'ru' => "Заклепка",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
                 'image' => 'resources/images/crafting_parts/cp_rivet_1.webp',
@@ -371,6 +445,7 @@ class ItemSeeder extends Seeder
             [
                 'name'  => [
                     'en' => "Nut",
+                    'ru' => "Гайка",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
                 'image' => 'resources/images/crafting_parts/cp_nut_1.webp',
@@ -378,12 +453,14 @@ class ItemSeeder extends Seeder
             [
                 'name'  => [
                     'en' => "Scrap metal",
+                    'ru' => "Металлолом",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
                 'image' => 'resources/images/crafting_parts/cp_scrap_metal_1.webp',
             ],
             [
                 'name'  => [
+                    'ru' => "Резиновая прокладка",
                     'en' => "Rubber gasket",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
@@ -391,6 +468,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Лезвие",
                     'en' => "Blade",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
@@ -398,6 +476,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Шестеренка",
                     'en' => "Gear",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
@@ -405,6 +484,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Подшипник",
                     'en' => "Bearing",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
@@ -412,6 +492,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Металлическая трубка",
                     'en' => "Metal tube",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
@@ -419,6 +500,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Осколки флюра",
                     'en' => "Flur shard",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
@@ -426,14 +508,65 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Осколки кварка",
                     'en' => "Quark shard",
                 ],
                 'type'  => ItemTypeEnum::PART->value,
                 'image' => 'resources/images/crafting_parts/cp_shard_quark_1.webp',
             ],
+            [
+                'name'  => [
+                    'ru' => "КРИСТАЛЛИЧЕСКИЙ ОТРАЖАТЕЛЬ",
+                    'en' => "Crystal Reflector",
+                ],
+                'type'  => ItemTypeEnum::PART->value,
+                'image' => 'resources/images/crafting_parts/crystal_reflector_1.webp',
+            ],
+            [
+                'name'  => [
+                    'ru' => "Кванто-титановый болт",
+                    'en' => "Quantum Titanium Bolt",
+                ],
+                'type'  => ItemTypeEnum::PART->value,
+                'image' => 'resources/images/crafting_parts/bolt_1.webp',
+            ],
+            [
+                'name'  => [
+                    'ru' => "Металлическая пластина",
+                    'en' => "Metal Plate",
+                ],
+                'type'  => ItemTypeEnum::PART->value,
+                'image' => 'resources/images/crafting_parts/metal_plate_1.webp',
+            ],
 
             [
                 'name'  => [
+                    'ru' => "Сыворотка чистоты",
+                    'en' => "Purity Serum",
+                ],
+                'type'  => ItemTypeEnum::CONSUMABLE->value,
+                'image' => 'resources/images/consumable/serum_purity_1.webp',
+            ],
+            [
+                'name'  => [
+                    'ru' => "БОЛЬШОЕ ЗЕЛЬЕ ЛЕЧЕНИЯ",
+                    'en' => "Large Healing Potion",
+                ],
+                'type'  => ItemTypeEnum::CONSUMABLE->value,
+                'image' => 'resources/images/consumable/healing_big_1.webp',
+            ],
+            [
+                'name'  => [
+                    'ru' => "МАЛОЕ ЗЕЛЬЕ ЛЕЧЕНИЯ",
+                    'en' => "Small Healing Potion",
+                ],
+                'type'  => ItemTypeEnum::CONSUMABLE->value,
+                'image' => 'resources/images/consumable/healing_small_1.webp',
+            ],
+
+            [
+                'name'  => [
+                    'ru' => "РЕЦЕПТ: КВАНТО-ТИТАНОВЫЙ БОЛТ",
                     'en' => "Recipe: Quantum Titanium Bolt",
                 ],
                 'type'  => ItemTypeEnum::RECIPE->value,
@@ -441,6 +574,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Рецепт: Металлическая пластина",
                     'en' => "Recipe: Metal Plate",
                 ],
                 'type'  => ItemTypeEnum::RECIPE->value,
@@ -448,6 +582,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "РЕЦЕПТ: КРИСТАЛЛИЧЕСКИЙ ОТРАЖАТЕЛЬ",
                     'en' => "Recipe: Crystal Reflector",
                 ],
                 'type'  => ItemTypeEnum::RECIPE->value,
@@ -455,6 +590,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "РЕЦЕПТ: ЛАМПА С ДАСТОМ",
                     'en' => "Recipe: Lamp With Dust",
                 ],
                 'type'  => ItemTypeEnum::RECIPE->value,
@@ -462,6 +598,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "РЕЦЕПТ: ТЯЖЕЛАЯ КУРТКА",
                     'en' => "Recipe: Heavy Jacket",
                 ],
                 'type'  => ItemTypeEnum::RECIPE->value,
@@ -469,6 +606,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "РЕЦЕПТ: КОМБИНЕЗОН ДИГГЕРА",
                     'en' => "Recipe: Digger's Jumpsuit",
                 ],
                 'type'  => ItemTypeEnum::RECIPE->value,
@@ -476,6 +614,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "РЕЦЕПТ: ПОДЗОРНАЯ ТРУБА",
                     'en' => "Recipe: Spyglass",
                 ],
                 'type'  => ItemTypeEnum::RECIPE->value,
@@ -483,6 +622,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "РЕЦЕПТ: МОНОКЛЬ",
                     'en' => "Recipe: Monocle",
                 ],
                 'type'  => ItemTypeEnum::RECIPE->value,
@@ -490,6 +630,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "РЕЦЕПТ: СЫВОРОТКА ЧИСТОТЫ",
                     'en' => "Recipe: Purity Serum",
                 ],
                 'type'  => ItemTypeEnum::RECIPE->value,
@@ -497,6 +638,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "РЕЦЕПТ: ПАРОВАЯ ДВУСТВОЛКА МЕНТОНА",
                     'en' => "Recipe: Double-barreled Menton's Steam Rifle",
                 ],
                 'type'  => ItemTypeEnum::RECIPE->value,
@@ -504,6 +646,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "РЕЦЕПТ: БОЛЬШОЕ ЗЕЛЬЕ ЛЕЧЕНИЯ",
                     'en' => "Recipe: Large Healing Potion",
                 ],
                 'type'  => ItemTypeEnum::RECIPE->value,
@@ -511,13 +654,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
-                    'en' => "Recipe: Lamp With Dust",
-                ],
-                'type'  => ItemTypeEnum::RECIPE->value,
-                'image' => 'resources/images/recipes/draft-lamp_dust.png',
-            ],
-            [
-                'name'  => [
+                    'ru' => "РЕЦЕПТ: РАПИРА ВОЗМЕЗДИЯ",
                     'en' => "Recipe: Rapier Of Retribution",
                 ],
                 'type'  => ItemTypeEnum::RECIPE->value,
@@ -525,6 +662,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "РЕЦЕПТ: НАРУЧНЫЕ ЧАСЫ",
                     'en' => "Recipe: Wristwatch",
                 ],
                 'type'  => ItemTypeEnum::RECIPE->value,
@@ -532,6 +670,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "РЕЦЕПТ: Заклепка",
                     'en' => "Recipe: Rivet",
                 ],
                 'type'  => ItemTypeEnum::RECIPE->value,
@@ -539,6 +678,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "РЕЦЕПТ: МАЛОЕ ЗЕЛЬЕ ЛЕЧЕНИЯ",
                     'en' => "Recipe: Small Healing Potion",
                 ],
                 'type'  => ItemTypeEnum::RECIPE->value,
@@ -546,15 +686,32 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "РЕЦЕПТ: ПАРОВОЙ ФОНАРИК",
                     'en' => "Recipe: Steam Flashlight",
                 ],
                 'type'  => ItemTypeEnum::RECIPE->value,
                 'image' => 'resources/images/recipes/draft-lantern_steam.png',
             ],
-
+            [
+                'name'  => [
+                    'ru' => "РЕЦЕПТ: Металлическая трубка",
+                    'en' => "Recipe: Metal TUbe",
+                ],
+                'type'  => ItemTypeEnum::RECIPE->value,
+                'image' => 'resources/images/recipes/draft-metal_tube.png',
+            ],
+            [
+                'name'  => [
+                    'ru' => "РЕЦЕПТ: ПОСОХ “ДУША КВАРКА”",
+                    'en' => "Recipe: Staff 'Soul of Quark'",
+                ],
+                'type'  => ItemTypeEnum::RECIPE->value,
+                'image' => 'resources/images/recipes/draft-staff_soul_qrk.png',
+            ],
 
             [
                 'name'  => [
+                    'ru' => "Железо",
                     'en' => "Iron",
                 ],
                 'type'  => ItemTypeEnum::RESOURCE->value,
@@ -562,6 +719,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Медь",
                     'en' => "Copper",
                 ],
                 'type'  => ItemTypeEnum::RESOURCE->value,
@@ -569,6 +727,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'name'  => [
+                    'ru' => "Слюда",
                     'en' => "Mica",
                 ],
                 'type'  => ItemTypeEnum::RESOURCE->value,
@@ -577,9 +736,14 @@ class ItemSeeder extends Seeder
         ];
 
         foreach ($items as $item) {
-            // Check if the item already exists
-            if (\App\Models\Item::where('name->en', $item['name']['en'])->exists()) {
-                continue; // Skip if the item already exists
+            $existingItem = \App\Models\Item::query()
+                ->where('name->en', $item['name']['en'])
+                ->where('type', $item['type'])
+                ->first();
+            if ($existingItem) {
+                $existingItem->name =$item['name'];
+                $existingItem->save();
+                continue;
             }
             $imagePath = base_path($item['image']);
             $dir = match ($item['type']) {
