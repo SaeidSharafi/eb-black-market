@@ -62,7 +62,7 @@
         @yield('title', __('resources.home.title') . ' - ' . config('app.name', 'Empires Market'))
     </title>
     <meta name="description" content="@yield('description', __('resources.home.subtitle'))" />
-    <meta name="keywords" content="@yield('keywords', 'Empires Battle, Black Market, NFT Trading, Gaming Marketplace, Crypto Gaming, TON, QRK, NOT tokens')" />
+    <meta name="keywords" content="@yield('keywords', 'Empire\'s Battle, Black Market, NFT Trading, Gaming Marketplace, Crypto Gaming, TON, QRK, NOT tokens')" />
     <meta name="author" content="Empires Market Community" />
     <meta name="robots" content="@yield('robots', 'index, follow')" />
 

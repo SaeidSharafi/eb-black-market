@@ -44,15 +44,15 @@ return [
     ],
     // Home page localization
     'home' => [
-        'title' => 'Empires Battle: Black Market',
+        'title' => 'Empire\'s Battle: Black Market',
         'home' => 'Home',
         'sitemap' => 'Sitemap',
         'dashboard' => 'Dashboard',
-        'subtitle' => 'A community listing platform for Empires Battle: World of Steam in-game items. List your items and connect with fellow players.',
+        'subtitle' => 'A community listing platform for Empire\'s Battle: World of Steam in-game items. List your items and connect with fellow players.',
         'go_to_dashboard' => 'Go to Dashboard',
         'login' => 'Login',
         'slider_trade_title' => 'List Your In-Game Items',
-        'slider_trade_desc' => 'List items from Empires Battle: World of Steam and connect with other players!',
+        'slider_trade_desc' => 'List items from Empire\'s Battle: World of Steam and connect with other players!',
         'slider_earn_title' => 'Connect with Players',
         'slider_earn_desc' => 'List your items and let other players contact you to arrange trades in-game.',
         'latest_listings' => 'Latest Listings',
@@ -78,9 +78,9 @@ return [
         'price_ton' => 'TON: :value',
         'price_usd' => 'USD: :value',
         'contact_seller' => 'Contact',
-        'disclaimer' => 'This is a fan-made listing platform and is not affiliated with the official Empires Battle: World of Steam developers. All trades happen directly between players within the game.',
+        'disclaimer' => 'This is a fan-made listing platform and is not affiliated with the official Empire\'s Battle: World of Steam developers. All trades happen directly between players within the game.',
         'footer_disclaimer' => 'This site is a personal project for listing in-game items only.',
-        'footer_made_with' => 'Made with ❤️ for the Empires Battle community',
+        'footer_made_with' => 'Made with ❤️ for the Empire\'s Battle community',
         'donation' => 'If you find this project helpful, consider a small donation.',
         // FAQ Section
         'faq' => [
@@ -89,7 +89,7 @@ return [
             'questions' => [
                 'what_is' => [
                     'question' => 'What is Empires Market?',
-                    'answer' => 'Empires Market is a community listing platform for Empires Battle: World of Steam players. You can list your in-game items here, and interested players will contact you via Telegram to arrange trades within the game.'
+                    'answer' => 'Empires Market is a community listing platform for Empire\'s Battle: World of Steam players. You can list your in-game items here, and interested players will contact you via Telegram to arrange trades within the game.'
                 ],
                 'how_to_sell' => [
                     'question' => 'How do I list my items?',
@@ -97,11 +97,11 @@ return [
                 ],
                 'payment' => [
                     'question' => 'How do payments work?',
-                    'answer' => 'This website is only for listing items. All trades, negotiations, and payments happen directly between players through Telegram and within the Empires Battle: World of game itself. We do not handle any payments or transactions.'
+                    'answer' => 'This website is only for listing items. All trades, negotiations, and payments happen directly between players through Telegram and within the Empire\'s Battle: World of game itself. We do not handle any payments or transactions.'
                 ],
                 'safety' => [
                     'question' => 'Is it safe to trade?',
-                    'answer' => 'We only provide a listing platform. All actual trading happens within the Empires Battle game between players. Always be cautious when trading with others.'
+                    'answer' => 'We only provide a listing platform. All actual trading happens within the Empire\'s Battle game between players. Always be cautious when trading with others.'
                 ]
             ]
         ],
