@@ -49,7 +49,13 @@ final class MarketListingTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
-            ->add('item_name', fn(MarketListing $listing) => $listing->item->getTranslation('name', app()->getLocale()))
+            ->add('item_name', function(MarketListing $listing) {
+                $name = $listing->item->getTranslation('name', app()->getLocale());
+                return Blade::render(<<<HTML
+                        <span class="whitespace-break-spaces">{$name}</span>
+                    HTML
+                );
+               } )
             ->add('item_type', fn(MarketListing $listing) => __('enums.ItemTypeEnum.'.$listing->item->type))
             ->add('created_at_formatted', fn(MarketListing $listing) => $listing->created_at->diffForHumans())
             ->add('item_image', function (MarketListing $listing) {
@@ -110,13 +116,11 @@ final class MarketListingTable extends PowerGridComponent
 
     public function columns(): array
     {
-        $locale = app()->getLocale();
         return [
-            Column::make(__('resources.home.seller_telegram'), 'seller', 'users.telegram_username')
-                ->sortable()
+            Column::make('', 'seller', 'users.telegram_username')
                 ->searchable(),
             Column::make(__('resources.home.item_image'), 'item_image')
-                ->bodyAttribute('!p-2 w-20'),
+                ->bodyAttribute('w-20'),
 
             Column::make(__('resources.home.item_name'), 'item_name', 'items.name')
                 ->sortable()
@@ -133,6 +137,7 @@ final class MarketListingTable extends PowerGridComponent
 
 
             Column::make(__('resources.home.listed'), 'created_at_formatted', 'created_at')
+                ->bodyAttribute('text-xs text-gray-500')
                 ->sortable(),
         ];
     }

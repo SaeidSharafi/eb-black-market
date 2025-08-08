@@ -13,7 +13,7 @@ return [
     | Configure here the theme of your choice.
     */
 
-    'theme' => \PowerComponents\LivewirePowerGrid\Themes\Tailwind::class,
+    'theme' => \App\PowerGridThemes\SmallFont::class,
     // 'theme' => \PowerComponents\LivewirePowerGrid\Themes\DaisyUI::class,
     // 'theme' => \PowerComponents\LivewirePowerGrid\Themes\Bootstrap5::class,
 
