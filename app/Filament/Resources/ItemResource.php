@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enum\ItemRarityEnum;
 use App\Enum\ItemTypeEnum;
 use App\Filament\Resources\ItemResource\Pages;
 use App\Filament\Resources\ItemResource\RelationManagers;
@@ -34,6 +35,10 @@ class ItemResource extends Resource
                     ->label(__('resources.items.fields.type'))
                     ->options(ItemTypeEnum::getKeyValuePairs())
                     ->required(),
+                Forms\Components\Select::make('rarity')
+                    ->label(__('resources.items.fields.rarity'))
+                    ->options(ItemRarityEnum::getKeyValuePairs())
+                    ->required(),
                 Forms\Components\FileUpload::make('image')
                     ->label(__('resources.items.fields.image')),
                 Forms\Components\Textarea::make('description')
@@ -58,6 +63,10 @@ class ItemResource extends Resource
                 Tables\Columns\TextColumn::make('type')
                     ->label(__('resources.items.fields.type'))
                     ->formatStateUsing(fn (string $state): string => ItemTypeEnum::tryFrom($state)?->translate())
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('rarity')
+                    ->label(__('resources.items.fields.rarity'))
+                    ->formatStateUsing(fn (string|ItemRarityEnum $state): string => is_string($state) ? ItemRarityEnum::tryFrom($state)?->translate() : $state?->translate())
                     ->sortable(),
                 Tables\Columns\TextColumn::make('description')
                     ->label(__('resources.items.fields.description'))

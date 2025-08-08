@@ -2,6 +2,14 @@
 return [
     'ItemTypeEnum' => [
         'equipment' => 'Оборудование',
+        'weapon' => 'Оружие',
+        'pants' => 'Штаны',
+        'gloves' => 'Перчатки',
+        'body' => 'Тело',
+        'helmet' => 'Шлем',
+        'boots' => 'Ботинки',
+        'amplifier' => 'Усилитель',
+        'accessory' => 'Аксессуар',
         'consumable' => 'Расходный материал',
         'resource' => 'Ресурс',
         'part' => 'Часть крафта',
@@ -15,5 +23,12 @@ return [
         'NOT' => 'NOT',
         'TON' => 'TON',
         'USD' => 'USDT',
+    ],
+    'ItemRarityEnum' => [
+        'common' => 'Обычный',
+        'uncommon' => 'Необычный',
+        'rare' => 'Редкий',
+        'epic' => 'Эпический',
+        'legendary' => 'Легендарный',
     ],
 ];

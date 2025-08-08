@@ -8,6 +8,7 @@ return [
         'fields' => [
             'name' => 'Название',
             'type' => 'Тип',
+            'rarity' => 'Редкость',
             'image' => 'Изображение',
             'description' => 'Описание',
             'created_at' => 'Дата создания',

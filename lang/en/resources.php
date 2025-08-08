@@ -8,6 +8,7 @@ return [
         'fields' => [
             'name' => 'Name',
             'type' => 'Type',
+            'rarity' => 'Rarity',
             'image' => 'Image',
             'description' => 'Description',
             'created_at' => 'Created At',
