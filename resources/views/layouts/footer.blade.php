@@ -46,7 +46,7 @@
                                 href="/dashboard"
                                 class="text-gray-400 hover:text-white text-sm transition"
                             >
-                                {{ ('resources.home.dashboard') }}
+                                {{ __('resources.home.dashboard') }}
                             </a>
                         </li>
                         <li>
@@ -54,7 +54,7 @@
                                 href="/sitemap.xml"
                                 class="text-gray-400 hover:text-white text-sm transition"
                             >
-                            {{ ('resources.home.sitemap') }}
+                            {{ __('resources.home.sitemap') }}
                             </a>
                         </li>
                     </ul>
