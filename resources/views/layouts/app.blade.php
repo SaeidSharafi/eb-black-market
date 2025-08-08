@@ -5,7 +5,45 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <!-- Google tag (gtag.js) -->
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        // EU-specific settings
+        gtag('consent', 'default', {
+            'ad_personalization': 'denied',
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'analytics_storage': 'denied',
+            'functionality_storage': 'denied',
+            'personalization_storage': 'denied',
+            'region': [
+                'GB','AT','BE','BG','CH','CY','DE','DK','EE','ES','FI',
+                'FR','GG','GR','HR','HU','IE','IM','IT','JE','LT','LU',
+                'LV','MT','NL','PL','PT','RO','SE','SI','SK'
+            ],
+            'wait_for_update': 500,
+        });
+        // Default settings
+        gtag('consent', 'default', {
+            'ad_personalization': 'granted',
+            'ad_storage': 'granted',
+            'ad_user_data': 'granted',
+            'analytics_storage': 'granted',
+            'functionality_storage': 'granted',
+            'personalization_storage': 'granted',
+            'security_storage': 'granted',
+            'wait_for_update': 500,
+        });
+        gtag('set', 'ads_data_redaction', true);
+        gtag('set', 'url_passthrough', false);
+    </script>
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js"
+            data-cbid="a29f0c73-ac37-4994-a3e2-48a122745e8f" type="text/javascript"
+            async
+    ></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4DP34FDP22"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -15,6 +53,7 @@
         gtag('config', 'G-4DP34FDP22');
     </script>
     <meta charset="utf-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
