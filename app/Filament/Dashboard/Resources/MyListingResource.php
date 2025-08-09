@@ -123,6 +123,7 @@ class MyListingResource extends Resource
                 Tables\Columns\TextColumn::make('status')->label(__('resources.market_listings.fields.status'))->badge()->color(fn(string $state): string => match ($state) {
                     'active' => 'success',
                     'inactive' => 'warning',
+                    'sold' => 'danger',
                 }),
             ])
             ->filters([

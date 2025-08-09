@@ -145,6 +145,7 @@ class MarketListingResource extends Resource
                     ->color(fn(string $state): string => match ($state) {
                         'active' => 'success',
                         'inactive' => 'warning',
+                        'sold' => 'danger',
                     }),
             ])
             ->filters([
