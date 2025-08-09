@@ -46,6 +46,8 @@ class MarketListingResource extends Resource
                     Forms\Components\Select::make('user_id')
                         ->label(__('resources.market_listings.fields.seller'))
                         ->default(auth()->id())
+                        ->searchable()
+                        ->preload()
                         ->relationship('user', 'name')
                         ->required(),
                     Forms\Components\Select::make('item_id')
