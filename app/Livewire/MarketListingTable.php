@@ -20,6 +20,7 @@ final class MarketListingTable extends PowerGridComponent
     public string $tableName = 'market-listing-table-kbja9x-table';
     public bool $showFilters = true;
     public string $sortField = 'updated_at';
+    public array $sortArray= ['updated_at' => 'desc'];
 
     public string $sortDirection = 'desc';
     public bool $measurePerformance = false;
