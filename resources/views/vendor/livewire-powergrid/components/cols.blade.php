@@ -43,6 +43,7 @@
     @class([
         theme_style($theme, 'table.header.th') => true,
         data_get($column, 'headerClass') => true,
+        data_get($column, 'sortable') ? 'sortable' : '',
     ])
     @style([
         'display:none' => data_get($column, 'hidden') === true,

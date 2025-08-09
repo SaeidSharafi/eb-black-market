@@ -44,16 +44,18 @@
   /* Hide the original table header, we don't need it */
 
   thead {
-   display: none;
+   /*display: none;*/
   }
 
   /* Make the table, body, and rows behave like blocks, not table elements */
 
-  table, tbody, tr {
+  table,thead, tbody, tr {
    display: block;
    width: 100%;
   }
-
+  thead{
+   padding: 0;
+  }
   /* Style the rows like cards */
 
   tr {
@@ -68,7 +70,12 @@
   }
 
   /* Make each cell a block, taking up the full width */
-
+  th{
+   display: none;
+  }
+  th.sortable {
+   display: flex;
+  }
   td {
    display: flex;
    justify-content: right;

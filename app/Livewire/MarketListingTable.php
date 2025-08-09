@@ -22,7 +22,8 @@ final class MarketListingTable extends PowerGridComponent
     public string $sortField = 'updated_at';
 
     public string $sortDirection = 'desc';
-    public bool $measurePerformance = true;
+    public bool $measurePerformance = false;
+    public bool $multiSort = true;
     public function setUp(): array
     {
         return [
