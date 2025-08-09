@@ -42,6 +42,9 @@ return [
             'prices' => 'Prices',
             'prices_description' => 'Set prices for each currency',
         ],
+        'actions' => [
+            'bump' => 'Bump Listing',
+        ]
     ],
     // Home page localization
     'home' => [

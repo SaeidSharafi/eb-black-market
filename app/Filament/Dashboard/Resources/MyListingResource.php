@@ -111,11 +111,6 @@ class MyListingResource extends Resource
                     ->label(__('resources.market_listings.fields.seller'))
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
-
-                Tables\Columns\TextColumn::make('user.telegram_username')
-                    ->label(__('resources.market_listings.fields.telegram'))
-                    ->searchable(),
-
                 Tables\Columns\TextColumn::make('quantity')
                     ->label(__('resources.market_listings.fields.quantity'))
                     ->sortable(),
@@ -139,7 +134,15 @@ class MyListingResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
+                Tables\Actions\Action::make('bump')
+                    ->label(__('resources.market_listings.actions.bump'))
+                    ->icon('heroicon-o-arrow-up')
+                    ->requiresConfirmation()
+                    ->action(function (MarketListing $record) {
+                        $record->touch();
+                    }),
+
+            ], Tables\Enums\ActionsPosition::BeforeColumns)
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),

@@ -42,6 +42,9 @@ return [
             'prices' => 'Цены',
             'prices_description' => 'Установите цены для каждой валюты',
         ],
+        'actions' => [
+            'bump' => 'Поднять объявление',
+        ]
     ],
     // Home page localization
     'home' => [

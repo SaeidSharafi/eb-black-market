@@ -18,7 +18,7 @@ final class MarketListingTable extends PowerGridComponent
 {
     public string $tableName = 'market-listing-table-kbja9x-table';
     public bool $showFilters = true;
-    public string $sortField = 'created_at';
+    public string $sortField = 'updated_at';
 
     public string $sortDirection = 'desc';
     public bool $measurePerformance = true;
@@ -85,7 +85,7 @@ final class MarketListingTable extends PowerGridComponent
                 );
             })
             ->add('item_type', fn(MarketListing $listing) => __('enums.ItemTypeEnum.'.$listing->item->type))
-            ->add('created_at_formatted', fn(MarketListing $listing) => $listing->created_at->diffForHumans())
+            ->add('updated_at_formatted', fn(MarketListing $listing) => $listing->updated_at->diffForHumans())
             ->add('item_image', function (MarketListing $listing) {
                 $itemName = e($listing->item->getTranslation('name', app()->getLocale()));
                 $hideRarityTag = ItemTypeEnum::tryFrom($listing->item->type)?->isEquipment() ? 'inline-block' : 'hidden';
@@ -178,7 +178,7 @@ final class MarketListingTable extends PowerGridComponent
             Column::make(__('resources.home.avg_prices'), 'avg_prices', 'avg_price_usdt')
                 ->sortable(),
 
-            Column::make(__('resources.home.listed'), 'created_at_formatted', 'created_at')
+            Column::make(__('resources.home.listed'), 'updated_at_formatted', 'updated_at')
                 ->bodyAttribute('text-xs text-gray-500')
                 ->enableSort()
                 ->sortable(),
