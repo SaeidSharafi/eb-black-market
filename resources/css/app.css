@@ -109,4 +109,47 @@
    font-weight: bold;
   }
  }
+
+ /* Ensure content doesn't get covered by FAB on mobile */
+ .power-grid-table,
+ [wire\:id] {
+  margin-bottom: 120px !important;
+ }
+
+ /* Hide desktop header controls on mobile */
+ .power-grid-table .mb-3.md\:flex {
+  margin-bottom: 0 !important;
+ }
+
+ .power-grid-table .mb-3.md\:flex > div:first-child .flex-row {
+  display: none;
+ }
+
+ .power-grid-table .mb-3.md\:flex .flex.flex-row.mt-3 {
+  display: none;
+ }
 }
+
+/* Alpine.js collapse utility styles */
+[x-cloak] {
+  display: none !important;
+}
+
+/* FAB Menu scrollbar styling */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4b5563;
+}
+

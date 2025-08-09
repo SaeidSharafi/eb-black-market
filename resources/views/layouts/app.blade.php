@@ -151,31 +151,7 @@
         <main id="main-content">@yield('content')</main>
         @include('layouts.footer')
     </div>
-    <button id="to-top-button" title="Go to top" class="fixed bottom-5 right-5 z-50 hidden cursor-pointer rounded-full bg-gray-700 p-4 text-white hover:bg-gray-600">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-    </button>
-    <script>
-        const toTopButton = document.getElementById('to-top-button');
 
-        // Show the button when the user scrolls down 200px from the top of the document
-        window.onscroll = function() {
-            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-                toTopButton.style.display = "block";
-            } else {
-                toTopButton.style.display = "none";
-            }
-        };
-
-        // When the user clicks on the button, scroll to the top of the document
-        toTopButton.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    </script>
     @livewireScripts
     @stack('scripts')
 
