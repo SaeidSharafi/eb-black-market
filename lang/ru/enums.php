@@ -31,4 +31,8 @@ return [
         'epic' => 'Эпический',
         'legendary' => 'Легендарный',
     ],
+    'ListingTypeEnum' => [
+        'sell' => 'Продажа',
+        'buy' => 'Покупка',
+    ],
 ];

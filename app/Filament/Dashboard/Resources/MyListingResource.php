@@ -2,6 +2,7 @@
 
 namespace App\Filament\Dashboard\Resources;
 
+use App\Enum\ListingTypeEnum;
 use App\Filament\Dashboard\Resources\MyListingResource\Pages;
 use App\Filament\Dashboard\Resources\MyListingResource\RelationManagers;
 use App\Models\Item;
@@ -40,7 +41,11 @@ class MyListingResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make()->schema([
-                    // Requirement: item_id is a searchable dropdown that respects locale
+                    Forms\Components\Select::make('listing_type')
+                        ->label(__('resources.market_listings.fields.listing_type'))
+                        ->options(ListingTypeEnum::getKeyValuePairs())
+                        ->default(ListingTypeEnum::SELL->value)
+                        ->required(),
                     Forms\Components\Select::make('item_id')
                         ->label(__('resources.market_listings.fields.item'))
                         ->allowHtml()

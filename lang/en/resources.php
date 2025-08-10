@@ -19,7 +19,9 @@ return [
         'label' => 'Market Listing',
         'plural_label' => 'Market Listings',
         'title' => 'Market Listings',
+        'sell_buy' => 'Sell/|Buy',
         'fields' => [
+            'listing_type' => 'Listing Type',
             'item' => 'Item',
             'item_name' => 'Item Name',
             'seller' => 'Seller',
