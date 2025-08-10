@@ -2,6 +2,7 @@
 
 namespace App\Filament\Dashboard\Resources;
 
+use App\Enum\ListingStatusEnum;
 use App\Enum\ListingTypeEnum;
 use App\Filament\Dashboard\Resources\MyListingResource\Pages;
 use App\Filament\Dashboard\Resources\MyListingResource\RelationManagers;
@@ -80,11 +81,7 @@ class MyListingResource extends Resource
 
                     Forms\Components\Select::make('status')
                         ->label(__('resources.market_listings.fields.status'))
-                        ->options([
-                            'active'   => __('resources.market_listings.status.active'),
-                            'inactive' => __('resources.market_listings.status.inactive'),
-                            'sold'     => __('resources.market_listings.status.sold'),
-                        ])
+                        ->options(ListingStatusEnum::getKeyValuePairs())
                         ->default('active')
                         ->required(),
                 ])->columns(2),
@@ -125,11 +122,11 @@ class MyListingResource extends Resource
                 Tables\Columns\TextColumn::make('price_not')->label(__('resources.market_listings.fields.price_not'))->money('NOT')->sortable()->toggleable(),
                 Tables\Columns\TextColumn::make('price_ton')->label(__('resources.market_listings.fields.price_ton'))->money('TON')->sortable()->toggleable(),
                 Tables\Columns\TextColumn::make('price_usd')->label(__('resources.market_listings.fields.price_usd'))->money('USD')->sortable()->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('status')->label(__('resources.market_listings.fields.status'))->badge()->color(fn(string $state): string => match ($state) {
-                    'active' => 'success',
-                    'inactive' => 'warning',
-                    'sold' => 'danger',
-                }),
+                Tables\Columns\TextColumn::make('status')
+                    ->label(__('resources.market_listings.fields.status'))
+                    ->badge()
+                    ->formatStateUsing(fn(string $state): string => ListingStatusEnum::from($state)->translate())
+                    ->color(fn(string $state): string => ListingStatusEnum::from($state)->getColor()),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')

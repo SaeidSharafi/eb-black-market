@@ -16,9 +16,10 @@ return [
         'recipe' => 'Recipe',
     ],
 
-    'MarketListingStatusEnum' => [
+    'ListingStatusEnum' => [
         'active' => 'Active',
         'inactive' => 'Inactive',
+        'sold' => 'Sold/Bought',
     ],
     'CurrencyEnum' => [
         'qrk' => 'QRK',

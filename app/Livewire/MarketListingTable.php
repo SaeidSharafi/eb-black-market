@@ -5,7 +5,7 @@ namespace App\Livewire;
 use App\Enum\ItemRarityEnum;
 use App\Enum\ItemTypeEnum;
 use App\Enum\ListingTypeEnum;
-use App\Enum\ListinStatusEnum;
+use App\Enum\ListingStatusEnum;
 use App\Models\MarketListing;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Blade;
@@ -49,7 +49,7 @@ final class MarketListingTable extends PowerGridComponent
             ->with(['item', 'user'])
             ->join('items', 'market_listings.item_id', '=', 'items.id')
             ->join('users', 'market_listings.user_id', '=', 'users.id')
-            ->where('market_listings.status', ListinStatusEnum::ACTIVE)
+            ->where('market_listings.status', ListingStatusEnum::ACTIVE)
             ->select(
                 'market_listings.*',
                 'users.telegram_username',

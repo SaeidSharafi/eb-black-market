@@ -17,6 +17,7 @@ return [
     'MarketListingStatusEnum' => [
         'ACTIVE' => 'Активный',
         'INACTIVE' => 'Неактивный',
+        'SOLD' => 'Продан/Куплен',
     ],
     'CurrencyEnum' => [
         'QRK' => 'QRK',

@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enum\ListinStatusEnum;
+use App\Enum\ListingStatusEnum;
 use App\Models\Item;
 use App\Models\MarketListing;
 use App\Models\User;
@@ -22,7 +22,7 @@ class MarketListingFactory extends Factory
             'quantity_per_bundle' => $bundle ? $this->faker->randomElement([
                 10, 20, 50, 100, 200, 500, 1000
             ]) : 1,
-            'status'              => $this->faker->randomElement(ListinStatusEnum::getAllValues()),
+            'status'              => $this->faker->randomElement(ListingStatusEnum::getAllValues()),
             'price_ton'           => $this->faker->randomFloat(2, 0, 10),
             'price_qrk'           => $this->faker->randomFloat(2, 0, 500),
             'price_not'           => $this->faker->randomFloat(2, 0, 1000),
