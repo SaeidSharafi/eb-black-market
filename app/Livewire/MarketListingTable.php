@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Enum\ItemRarityEnum;
 use App\Enum\ItemTypeEnum;
+use App\Enum\ListingTypeEnum;
 use App\Enum\ListinStatusEnum;
 use App\Models\MarketListing;
 use Illuminate\Database\Eloquent\Builder;
@@ -116,26 +117,7 @@ final class MarketListingTable extends PowerGridComponent
                 );
             })
             ->add('prices', function (MarketListing $listing) {
-                $startDiv = '<div class="flex flex-col">';
-                $prices = "";
-                if ($listing->price_qrk) {
-                    $prices .= $this->formatPrice('QRK', $listing->price_qrk);
-                }
-                if ($listing->price_not) {
-                    $prices .= $this->formatPrice('NOT', $listing->price_qrk);
-                };
-                if ($listing->price_ton) {
-                    $prices .= $this->formatPrice('TON', $listing->price_ton);
-                };
-                if ($listing->price_usd) {
-                    $prices .= $this->formatPrice('USD', $listing->price_qrk);
-                }
-                $endDiv = '</div>';
-
-                if (!$prices) {
-                    return $startDiv.'<span class="text-gray-400">'.__('resources.home.na').'</span>'.$endDiv;
-                }
-                return $startDiv.$prices.$endDiv;
+               return $this->renderAlignedPriceBlock($listing);
             })
             ->add('avg_prices', function (MarketListing $listing) {
                 $avgPrice = (float) $listing->avg_price_usdt;
@@ -172,16 +154,14 @@ final class MarketListingTable extends PowerGridComponent
             Column::make(__('resources.home.item_name'), 'item_name', 'items.name')
                 ->sortable()
                 ->searchableRaw("JSON_SEARCH(LOWER(JSON_EXTRACT(items.name, '$.*')), 'one', LOWER(?)) IS NOT NULL"),
-            Column::make(__('resources.home.item_type'), 'item_type', 'items.type')
-                ->sortable(),
-            Column::make(__('resources.market_listings.fields.quantity'), 'quantity', 'quantity'),
-            Column::make(__('resources.market_listings.fields.quantity_per_bundle'), 'quantity_per_bundle',
-                'quantity_per_bundle')
-            ,
             Column::make(__('resources.home.prices'), 'prices', 'price_qrk'),
             Column::make(__('resources.home.avg_prices'), 'avg_prices', 'avg_price_usdt')
                 ->sortable(),
-
+            Column::make(__('resources.market_listings.fields.quantity'), 'quantity', 'quantity'),
+            Column::make(__('resources.market_listings.fields.quantity_per_bundle'), 'quantity_per_bundle',
+                'quantity_per_bundle'),
+            Column::make(__('resources.home.item_type'), 'item_type', 'items.type')
+                ->sortable(),
             Column::make(__('resources.home.listed'), 'updated_at_formatted', 'updated_at')
                 ->bodyAttribute('text-xs text-gray-500')
                 ->enableSort()
@@ -200,6 +180,7 @@ final class MarketListingTable extends PowerGridComponent
                 ->dataSource(ItemRarityEnum::getValueLabel())
                 ->optionLabel('label')
                 ->optionValue('value'),
+
         ];
     }
 
@@ -232,25 +213,49 @@ final class MarketListingTable extends PowerGridComponent
         return $pricesHtml;
     }
 
-    private function formatPrice(string $symbol, mixed $price): string
+    private function formatPriceRow(string $symbol, mixed $price, string $colorClass): string
     {
-        $label = match ($symbol) {
-            'QRK' => "<span class='font-bold text-purple-400'>QRK: </span>",
-            'NOT' => "<span class='font-bold text-green-400'>NOT: </span>",
-            'TON' => "<span class='font-bold text-blue-400'>TON: </span>",
-            default => "<span class='font-bold text-yellow-400'>USD</span>",
-        };
-        $lowerSymbol = strtolower($symbol);
-        $toUsd = $symbol !== "USD" ?
-            " <span class='text-xs text-gray-500'>"
-            .number_format(cache()->get("{$lowerSymbol}_usdt_price", 0.0) * $price, 2)
-            ." USDT</span>" : "";
-        return '<div class="inline-block">'
-            .$label
-            .number_format($price, 2)
-            .$toUsd
-            ."</div>";
+        // Column 1: The right-aligned label (e.g., "QRK:")
+        $labelHtml = "<div class='font-bold {$colorClass} text-right'>" . $symbol . ":</div>";
 
+        // Column 2: The value
+        $valueHtml = "<div>" . number_format($price, 2);
+
+        // Add the compact USDT equivalent only if it's not the USD row itself
+        if ($symbol !== 'USD') {
+            $usdValue = cache()->get(strtolower($symbol) . '_usdt_price', 0.0) * $price;
+            $valueHtml .= "<span class='ml-2 text-xs text-gray-500'>| $" . number_format($usdValue, 2) . "</span>";
+        }
+
+        $valueHtml .= "</div>";
+
+        return $labelHtml . $valueHtml;
+    }
+    function renderAlignedPriceBlock($listing)
+    {
+        $pricesHtml = '';
+
+        // Call the helper function for each currency that exists
+        if (isset($listing->price_qrk)) {
+            $pricesHtml .= $this->formatPriceRow('QRK', $listing->price_qrk, 'text-purple-400');
+        }
+        if (isset($listing->price_not)) {
+            $pricesHtml .= $this->formatPriceRow('NOT', $listing->price_not, 'text-green-400');
+        }
+        if (isset($listing->price_ton)) {
+            $pricesHtml .= $this->formatPriceRow('TON', $listing->price_ton, 'text-blue-400');
+        }
+        if (isset($listing->price_usd)) {
+            $pricesHtml .= $this->formatPriceRow('USD', $listing->price_usd, 'text-yellow-400');
+        }
+
+        // If no prices were added, return the N/A text
+        if (empty($pricesHtml)) {
+            return '<span class="text-gray-400">' . __('resources.home.na') . '</span>';
+        }
+
+        // Wrap the generated rows in the main grid container
+        return '<div class="grid grid-cols-[auto_1fr] gap-x-3 leading-tight">' . $pricesHtml . '</div>';
     }
 
 }
