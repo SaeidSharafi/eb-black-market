@@ -53,7 +53,11 @@
     ])
 >
     <div class="{{ theme_style($theme, 'cols.div') }}">
-        <span data-value>{!! data_get($column, 'title') !!}</span>
+        @php
+         $columnTitle = data_get($column, 'title');
+            $columnTitle = str_replace('|', '<span class="hidden md:block"></span>', $columnTitle);
+        @endphp
+        <span data-value>{!! $columnTitle !!}</span>
 
         @if (data_get($column, 'enableSort'))
             <x-dynamic-component
