@@ -82,6 +82,17 @@ final class MarketListingTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
+            ->add('listing_type', function (MarketListing $listing) {
+                $type = ListingTypeEnum::tryFrom($listing->listing_type)->translate();
+                $class = match ($listing->listing_type) {
+                    ListingTypeEnum::SELL->value => 'bg-green-100 text-green-800',
+                    ListingTypeEnum::BUY->value => 'bg-red-100 text-red-800',
+                };
+                return Blade::render(<<<HTML
+                        <span class="inline-block px-2 py-1 {$class} rounded-full text-xs font-semibold">$type</span>
+                    HTML
+                );
+            })
             ->add('item_name', function (MarketListing $listing) {
                 $name = $listing->item->getTranslation('name', app()->getLocale());
                 return Blade::render(<<<HTML
@@ -148,6 +159,7 @@ final class MarketListingTable extends PowerGridComponent
         return [
             Column::make('', 'seller', 'users.telegram_username')
                 ->searchable(),
+            Column::make(__('resources.market_listings.sell_buy'), 'listing_type', 'listing_type'),
             Column::make(__('resources.items.fields.rarity'), 'item_image')
                 ->bodyAttribute('w-20'),
 
@@ -172,6 +184,10 @@ final class MarketListingTable extends PowerGridComponent
     public function filters(): array
     {
         return [
+            Filter::select('listing_type', 'market_listings.listing_type')
+                ->dataSource(ListingTypeEnum::getValueLabel())
+                ->optionLabel('label')
+                ->optionValue('value'),
             Filter::select('item_type','items.type' )
                 ->dataSource(ItemTypeEnum::getValueLabel())
                 ->optionLabel('label')
