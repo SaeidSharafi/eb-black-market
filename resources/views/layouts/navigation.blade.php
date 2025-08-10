@@ -1,10 +1,13 @@
 <nav
-    x-data="{ open: false, langOpen: false, coffeeOpen: false, coffeeOpenMobile: false }"
+    x-data="{ open: false, langOpen: false }"
     class="bg-gray-800 border-b border-gray-700"
 >
+    <!-- Donation Banner -->
+    <x-donation-banner />
+
     <!-- Primary Navigation Menu -->
-    <nav
-        class="bg-gray-800/60 backdrop-blur-lg sticky top-0 z-50 border-b border-gray-700/50"
+    <div
+        class="bg-gray-800/60 backdrop-blur-lg sticky top-0 z-40 border-b border-gray-700/50"
     >
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -25,9 +28,6 @@
                             class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                             >{{ __("resources.home.view_all_listings") }}</a
                         >
-
-                        <!-- Buy me a coffee -->
-                        <x-donation-dropdown />
                     </div>
                     @auth
                     <div class="hidden md:block">
@@ -55,7 +55,7 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden">
@@ -81,9 +81,6 @@
                 {{ __("resources.home.login") }}
             </a>
             @endauth
-
-            <!-- Buy me a coffee mobile -->
-            <x-donation-dropdown :is-mobile="true" />
         </div>
     </div>
 </nav>
