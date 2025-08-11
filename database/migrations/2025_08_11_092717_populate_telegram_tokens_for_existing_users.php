@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         \App\Models\User::whereNull('telegram_connect_token')->cursor()->each(function (\App\Models\User $user) {
-            $user->telegram_connect_token = Str::uuid7();
+            $user->telegram_connect_token = Str::uuid();
             $user->save();
         });
     }

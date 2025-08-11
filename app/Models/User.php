@@ -60,7 +60,7 @@ class User extends Authenticatable implements FilamentUser
 
         static::creating(function ($user) {
             if (empty($user->telegram_connect_token)) {
-                $user->telegram_connect_token = Str::uuid7();
+                $user->telegram_connect_token = Str::uuid();
             }
         });
     }
