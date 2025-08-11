@@ -15,9 +15,10 @@ return [
         'part' => 'Часть крафта',
     ],
     'MarketListingStatusEnum' => [
-        'ACTIVE' => 'Активный',
-        'INACTIVE' => 'Неактивный',
-        'SOLD' => 'Продан/Куплен',
+        'active' => 'Активный',
+        'inactive' => 'Неактивный',
+        'sold' => 'Продан/Куплен',
+        'expired' => 'Истекший',
     ],
     'CurrencyEnum' => [
         'QRK' => 'QRK',

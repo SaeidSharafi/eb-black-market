@@ -45,7 +45,7 @@ return [
             'prices_description' => 'Set prices for each currency',
         ],
         'actions' => [
-            'bump' => 'Bump Listing',
+            'bump' => 'Bump',
         ]
     ],
     // Home page localization
@@ -119,6 +119,15 @@ return [
                     'answer' => 'We only provide a listing platform. All actual trading happens within the Empire\'s Battle game between players. Always be cautious when trading with others.'
                 ]
             ]
+        ],
+    ],
+    'filament-widgets' => [
+        'connect-telegram-banner' => [
+            'title' => 'Connect Telegram',
+            'description' => 'Connect your Telegram account to receive notifications about your listings.',
+            'connect' => 'Connect Telegram',
+            'connected' => 'Telegram connected successfully!',
+            'not_connected' => 'You are not connected to Telegram. Please connect to receive notifications.',
         ],
     ],
 ];

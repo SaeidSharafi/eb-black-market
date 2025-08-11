@@ -40,4 +40,9 @@ return [
         'dex_id' => 2300, // The dexId for STON.fi
     ],
 
+    'telegram-bot-api' => [
+        'token' => env('TELEGRAM_BOT_TOKEN'),
+        'bot_username' => env('TELEGRAM_BOT_USERNAME'), // Add this line
+    ],
+
 ];

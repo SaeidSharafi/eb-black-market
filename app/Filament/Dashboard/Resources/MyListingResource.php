@@ -142,7 +142,9 @@ class MyListingResource extends Resource
                     ->icon('heroicon-o-arrow-up')
                     ->requiresConfirmation()
                     ->action(function (MarketListing $record) {
-                        $record->touch();
+                        $record->status = ListingStatusEnum::ACTIVE;
+                        $record->expired_notification_sent_at = null;
+                        $record->save();
                     }),
 
             ], Tables\Enums\ActionsPosition::BeforeColumns)

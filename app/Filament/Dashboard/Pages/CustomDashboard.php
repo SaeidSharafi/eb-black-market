@@ -10,16 +10,21 @@ class CustomDashboard extends BaseDashboard
 
     public function getWidgets(): array
     {
+        $topWidget = [
+            \App\Filament\Dashboard\Widgets\ConnectTelegramBanner::class,
+        ];
         if (auth()->user()->is_super_admin) {
-            return [
+            $adminWidgets =  [
                 \App\Filament\Dashboard\Widgets\StatsOverview::class,
                 \App\Filament\Dashboard\Widgets\UserListingsOverview::class,
-                \Filament\Widgets\AccountWidget::class,
             ];
         }
-        return [
-            \App\Filament\Dashboard\Widgets\UserListingsOverview::class,
-            \Filament\Widgets\AccountWidget::class,
-        ];
+        return array_merge(
+            $topWidget,
+                $adminWidgets ?? [],
+            [
+                \Filament\Widgets\AccountWidget::class,
+            ]
+        );
     }
 }

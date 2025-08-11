@@ -20,6 +20,7 @@ return [
         'active' => 'Active',
         'inactive' => 'Inactive',
         'sold' => 'Sold/Bought',
+        'expired' => 'Expired',
     ],
     'CurrencyEnum' => [
         'qrk' => 'QRK',

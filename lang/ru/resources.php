@@ -45,7 +45,7 @@ return [
             'prices_description' => 'Установите цены для каждой валюты',
         ],
         'actions' => [
-            'bump' => 'Поднять объявление',
+            'bump' => 'Поднять',
         ]
     ],
     // Home page localization
@@ -120,6 +120,15 @@ return [
             ]
         ],
         'footer_disclaimer' => 'Этот сайт является личным проектом и не предназначен для коммерческого использования.',
+    ],
+    'filament-widgets' => [
+        'connect-telegram-banner' => [
+            'title' => 'Подключите Telegram',
+            'description' => 'Свяжите свой аккаунт Telegram для получения уведомлений о новых объявлениях и сообщениях от продавцов.',
+            'connect' => 'Подключить Telegram',
+            'connected' => 'Telegram успешно подключен!',
+            'not_connected' => 'Telegram не подключен. Пожалуйста, свяжите свой аккаунт.',
+        ],
     ],
 ];
 

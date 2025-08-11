@@ -15,11 +15,16 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             \App\Http\Middleware\SetLocale::class,
         ]);
+        $middleware->trustProxies(at: '*');
+        $middleware->validateCsrfTokens(except: [
+            'telegram/webhook',
+        ]);
     })
     ->withSchedule(function (Schedule $schedule) {
         $schedule->command('app:update-item-aggregates')->hourly();
         $schedule->command('update:rates')->hourly();
         $schedule->command('telescope:prune')->weekly();
+        $schedule->command('notify:expierd-listing')->everySixHours();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

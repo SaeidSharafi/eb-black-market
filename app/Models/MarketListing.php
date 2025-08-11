@@ -24,6 +24,8 @@ class MarketListing extends Model
             'price_not',
             'price_ton',
             'price_usd',
+            'listing_type',
+            'expired_notification_sent_at',
         ];
 
     protected $casts

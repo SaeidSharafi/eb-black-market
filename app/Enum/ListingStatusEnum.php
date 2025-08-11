@@ -12,6 +12,7 @@ enum ListingStatusEnum: string
     case INACTIVE = 'inactive';
 
     case SOLD = 'sold';
+    case EXPIRED = 'expired';
 
     public function getColor(): string
     {
@@ -19,6 +20,7 @@ enum ListingStatusEnum: string
             self::ACTIVE => 'success',
             self::INACTIVE => 'warning',
             self::SOLD => 'danger',
+            self::EXPIRED => 'gray',
         };
     }
 
