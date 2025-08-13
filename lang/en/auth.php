@@ -17,4 +17,15 @@ return [
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
+    // Telegram OAuth
+    'telegram' => [
+        'or_continue_with' => 'Or continue with',
+        'secure_authentication' => 'Secure authentication via Telegram',
+        'no_password_required' => 'No password required - login instantly with your Telegram account',
+        'auto_registration' => 'New users will be automatically registered',
+        'not_configured' => 'Telegram login not configured',
+        'contact_admin' => 'Contact the administrator to enable Telegram authentication.',
+        'authenticating' => 'Authenticating with Telegram...',
+    ],
+
 ];

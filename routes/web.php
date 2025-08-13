@@ -28,3 +28,4 @@ Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap')
 
 Route::post('/telegram/webhook', [\App\Http\Controllers\TelegramWebhookController::class, 'handle']);
 Route::get('/telegram/auth/callback', [\App\Http\Controllers\TelegramAuthController::class, 'handleCallback'])->name('telegram.auth.callback');
+Route::get('/telegram/auth', [\App\Http\Controllers\TelegramAuthController::class, 'handleCallback'])->name('telegram.auth.callback');

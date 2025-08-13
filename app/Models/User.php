@@ -33,6 +33,7 @@ class User extends Authenticatable implements FilamentUser
         'telegram_username',
         'telegram_avatar_url',
         'telegram_connect_token',
+        'locale',
     ];
 
     /**

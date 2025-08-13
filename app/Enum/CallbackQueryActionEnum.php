@@ -4,6 +4,7 @@ namespace App\Enum;
 
 enum CallbackQueryActionEnum: string
 {
+    case SET_LANGUAGE = 'set_language';
     case SET_LISTING_TYPE = 'set_listing_type';
     case SELECT_ITEM = 'select_item';
     case SET_PRICE_CURRENCY = 'set_price_currency';

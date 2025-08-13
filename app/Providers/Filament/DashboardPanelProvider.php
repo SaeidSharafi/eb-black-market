@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use App\Filament\Dashboard\Pages\CustomDashboard;
 use App\Filament\Dashboard\Widgets\ConnectTelegramBanner;
 use App\Filament\Pages\Auth\EditProfile;
+use App\Filament\Pages\Auth\Login;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -29,7 +30,7 @@ class DashboardPanelProvider extends PanelProvider
         return $panel
             ->id('dashboard')
             ->path('dashboard')
-            ->login()
+            ->login(Login::class)
             ->colors([
                 'primary' => Color::Amber,
             ])
