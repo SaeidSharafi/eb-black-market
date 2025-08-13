@@ -27,8 +27,12 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
+        'email_verified_at',
+        'telegram_user_id',
+        'telegram_chat_id',
         'telegram_username',
-        'email_verified_at'
+        'telegram_avatar_url',
+        'telegram_connect_token',
     ];
 
     /**
@@ -81,5 +85,10 @@ class User extends Authenticatable implements FilamentUser
     public function isSuperAdmin(): bool
     {
         return $this->is_super_admin;
+    }
+
+    public function routeNotificationForTelegram()
+    {
+        return $this->telegram_chat_id;
     }
 }

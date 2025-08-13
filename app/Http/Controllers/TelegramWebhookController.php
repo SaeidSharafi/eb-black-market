@@ -2,55 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Services\TelegramConversationService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class TelegramWebhookController extends Controller
 {
-    public function handle(Request $request)
+    public function handle(Request $request, TelegramConversationService $conversationService)
     {
-        $update = $request->all();
+        $update = Telegram::getWebhookUpdate();
 
-        // Check if the update is a message and contains text
-        if (isset($update['message']['text']) && isset($update['message']['chat']['id'])) {
-            $chatId = $update['message']['chat']['id'];
-            $text = $update['message']['text'];
-
-            // Check if the message is a /start command with a token
-            if (Str::startsWith($text, '/start ')) {
-                $token = Str::after($text, '/start ');
-
-                $user = User::where('telegram_connect_token', $token)->first();
-
-                if ($user) {
-                    // Associate the chat_id with the user and clear the token
-                    $user->telegram_chat_id = $chatId;
-                    $user->telegram_connect_token = null; // Token is single-use
-                    $user->save();
-
-                    // (Optional) Send a confirmation message back to the user
-                    $this->sendTelegramMessage($chatId, '✅ Your account has been successfully connected!');
-                }
+        // --- THIS IS THE FIX ---
+        // If the update is a button press (callback query)...
+        if ($update->isType('callback_query')) {
+            // ...answer it immediately before doing any other work.
+            // This prevents the timeout error.
+            try {
+                Telegram::answerCallbackQuery([
+                    'callback_query_id' => $update->getCallbackQuery()->getId(),
+                ]);
+            } catch (\Exception $e) {
+                // Log the exception if it fails, but don't crash the entire request.
+                // It might fail if the query was already answered or is truly invalid.
+                \Illuminate\Support\Facades\Log::error('Failed to answer callback query: ' . $e->getMessage());
             }
         }
 
+        // Pass the update as an array to our service.
+        $conversationService->processUpdate($update->toArray());
         return response()->json(['status' => 'ok']);
-    }
-
-    protected function sendTelegramMessage(string $chatId, string $message)
-    {
-        $token = config('services.telegram-bot-api.token');
-        $url = "https://api.telegram.org/bot{$token}/sendMessage";
-
-        try {
-            \Illuminate\Support\Facades\Http::post($url, [
-                'chat_id' => $chatId,
-                'text' => $message,
-            ]);
-        } catch (\Exception $e) {
-            Log::error('Failed to send Telegram confirmation message: ' . $e->getMessage());
-        }
     }
 }
