@@ -77,7 +77,7 @@ class MyListingResource extends Resource
                     ->label(__('resources.market_listings.fields.quantity_per_bundle'))
                         ->numeric()
                         ->default(1)
-                        ->required(),
+                        ->hidden(),
 
                     Forms\Components\Select::make('status')
                         ->label(__('resources.market_listings.fields.status'))

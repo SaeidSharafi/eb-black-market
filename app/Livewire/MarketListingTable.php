@@ -171,8 +171,7 @@ final class MarketListingTable extends PowerGridComponent
             Column::make(__('resources.home.avg_prices'), 'avg_prices', 'avg_price_usdt')
                 ->sortable(),
             Column::make(__('resources.market_listings.fields.quantity'), 'quantity', 'quantity'),
-            Column::make(__('resources.market_listings.fields.quantity_per_bundle'), 'quantity_per_bundle',
-                'quantity_per_bundle'),
+            //Column::make(__('resources.market_listings.fields.quantity_per_bundle'), 'quantity_per_bundle', 'quantity_per_bundle'),
             Column::make(__('resources.home.item_type'), 'item_type', 'items.type')
                 ->sortable(),
             Column::make(__('resources.home.listed'), 'updated_at_formatted', 'updated_at')
