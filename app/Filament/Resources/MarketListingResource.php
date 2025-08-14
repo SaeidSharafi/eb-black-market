@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enum\ListingStatusEnum;
 use App\Filament\Resources\MarketListingResource\Pages;
 use App\Filament\Resources\MarketListingResource\RelationManagers;
 use App\Models\Item;
@@ -142,11 +143,8 @@ class MarketListingResource extends Resource
                 Tables\Columns\TextColumn::make('price_usd')->label(__('resources.market_listings.fields.price_usd'))
                     ->money('USD')->sortable()->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('status')->label(__('resources.market_listings.fields.status'))->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'active' => 'success',
-                        'inactive' => 'warning',
-                        'sold' => 'danger',
-                    }),
+                    ->formatStateUsing(fn(string $state): string => ListingStatusEnum::from($state)->translate())
+                    ->color(fn(string $state): string => ListingStatusEnum::from($state)->getColor()),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
@@ -158,7 +156,17 @@ class MarketListingResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
+                Tables\Actions\Action::make('bump')
+                    ->label(__('resources.market_listings.actions.bump'))
+                    ->icon('heroicon-o-arrow-up')
+                    ->requiresConfirmation()
+                    ->action(function (MarketListing $record) {
+                        $record->status = ListingStatusEnum::ACTIVE;
+                        $record->expired_notification_sent_at = null;
+                        $record->save();
+                    }),
+
+            ], Tables\Enums\ActionsPosition::BeforeColumns)
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
