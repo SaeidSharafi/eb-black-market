@@ -4,6 +4,8 @@ return [
     'language_updated' => 'Язык успешно обновлен!',
     'welcome_back' => 'Добро пожаловать, :name!',
     'create_new_listing' => 'Создать новое объявление',
+    'show_my_listing' => 'Показать мои объявления',
+    'manage_listing' => 'Управление объявлениями',
     'change_language' => 'Изменить язык',
     'buy' => 'Купить',
     'sell' => 'Продать',
@@ -19,6 +21,7 @@ return [
     'listing_created_success' => '✅ Успешно! Ваше объявление создано.',
     'no_items_found' => '⚠️ Предметы, соответствующие \':search\', не найдены. Пожалуйста, попробуйте еще раз.',
     'please_search_again' => 'Пожалуйста, введите название предмета, который вы ищете.',
+    'my_listings' => 'У вас есть :count объявлений:\n:listings',
 
     // Fallback and help messages
     'unknown_command' => '❓ Неизвестная команда ":command". Вот ваши доступные варианты:',

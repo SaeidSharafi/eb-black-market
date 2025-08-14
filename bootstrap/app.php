@@ -24,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->command('app:update-item-aggregates')->hourly();
         $schedule->command('update:rates')->hourly();
         $schedule->command('telescope:prune')->weekly();
-        $schedule->command('notify:expierd-listing')->everySixHours();
+        $schedule->command('notify:expierd-listing')->everyFiveMinutes();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

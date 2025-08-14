@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enum\CallbackQueryActionEnum;
+use App\Enum\ListingStatusEnum;
 use App\Enum\TelegramConversationStepEnum;
 use App\Models\Item;
 use App\Models\MarketListing;
@@ -176,7 +177,9 @@ class TelegramConversationService
                         return;
                     }
                     $this->startNewListingConversation($user);
-                } elseif ($value === 'language' && $user) {
+                } elseif ($value === 'mylisting' && $user) {
+                    $this->startMyListingConversation($user);
+                }elseif ($value === 'language' && $user) {
                     $this->startLanguageSelection($user, $user->telegram_chat_id);
                 }
                 return;
@@ -303,6 +306,12 @@ class TelegramConversationService
                 ])
                 ->row([
                     Keyboard::button([
+                        'text' => '🆕 ' . __('telegram.show_my_listing'),
+                        'callback_data' => CallbackQueryActionEnum::EXECUTE_COMMAND->value . ':mylisting'
+                    ])
+                ])
+                ->row([
+                    Keyboard::button([
                         'text' => '🌐 ' . __('telegram.change_language'),
                         'callback_data' => CallbackQueryActionEnum::EXECUTE_COMMAND->value . ':language'
                     ])
@@ -362,7 +371,57 @@ class TelegramConversationService
             $this->sendErrorMessage($user->telegram_chat_id, 'Failed to start listing creation. Please try again.');
         }
     }
-
+    private function startMyListingConversation(User $user): void
+    {
+        try {
+            $keyboard = Keyboard::make()
+                ->inline()
+                ->row([
+                    Keyboard::button([
+                        'text' => '🆕 ' . __('telegram.manage_listing'),
+                        'url' => route('filament.dashboard.resources.my-listings.index')
+                    ])
+                ])
+                ->row([
+                    Keyboard::button([
+                        'text' => '🆕 ' . __('telegram.create_new_listing'),
+                        'callback_data' => CallbackQueryActionEnum::EXECUTE_COMMAND->value . ':newlisting'
+                    ])
+                ])
+                ->row([
+                    Keyboard::button([
+                        'text' => '🌐 ' . __('telegram.change_language'),
+                        'callback_data' => CallbackQueryActionEnum::EXECUTE_COMMAND->value . ':language'
+                    ])
+                ]);
+            $user->load(['marketListings' => function ($query) {
+                $query
+                    ->with('item')
+                    ->where('status', ListingStatusEnum::ACTIVE)
+                    ->orWhere('status', ListingStatusEnum::EXPIRED)
+                    ->orderBy('updated_at', 'desc')
+                ;
+            }]);
+                $myLisitngsText = __('telegram.my_listings', [
+                    'count' => $user->marketListings->count(),
+                    'listings' => $user->marketListings->map(function ($listing) {
+                        return "- {$listing->item->getTranslation('name', app()->getLocale())} ({$listing->quantity}) - "
+                            . ListingStatusEnum::tryFrom($listing->status)->translate();
+                    })->implode(PHP_EOL)
+                ]);
+            $this->telegram->sendMessage([
+                'chat_id' => $user->telegram_chat_id,
+                'text' => $myLisitngsText,
+                'reply_markup' => $keyboard
+            ]);
+        } catch (Throwable $e) {
+            Log::error('Error starting new listing conversation: ' . $e->getMessage(), [
+                'user_id' => $user->id,
+                'exception' => $e
+            ]);
+            $this->sendErrorMessage($user->telegram_chat_id, 'Failed to start listing creation. Please try again.');
+        }
+    }
     private function processItemSearch(TelegramConversation $conv, string $searchTerm, User $user): void
     {
         try {

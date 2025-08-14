@@ -43,6 +43,7 @@ return [
     'telegram-bot-api' => [
         'token' => env('TELEGRAM_BOT_TOKEN'),
         'username' => env('TELEGRAM_BOT_USERNAME'), // Bot username without @
+        'bot_username' => env('TELEGRAM_BOT_USERNAME'), // Alias for backward compatibility
     ],
 
 ];

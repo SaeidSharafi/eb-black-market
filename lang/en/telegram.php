@@ -4,6 +4,8 @@ return [
     'language_updated' => 'Language updated successfully!',
     'welcome_back' => 'Welcome back, :name!',
     'create_new_listing' => 'Create New Listing',
+    'show_my_listing' => 'Show My Listings',
+    'manage_listing' => 'Manage Listings',
     'change_language' => 'Change Language',
     'buy' => 'Buy',
     'sell' => 'Sell',
@@ -19,6 +21,8 @@ return [
     'listing_created_success' => '✅ Success! Your listing has been created.',
     'no_items_found' => '⚠️ No items found matching \':search\'. Please try again.',
     'please_search_again' => 'Please enter the name of the item you\'re looking for.',
+    'my_listings' => "You have :count listings:
+:listings",
 
     // Fallback and help messages
     'unknown_command' => '❓ Unknown command ":command". Here are your available options:',

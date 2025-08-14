@@ -11,14 +11,17 @@ class ConnectTelegramBanner extends Widget
     protected int|string|array $columnSpan = 'full';
 
     public ?string $connectUrl = null;
+    public ?string $botUsername = null;
 
     public function mount(): void
     {
         $user = Auth::user();
-        $botUsername = config('services.telegram-bot-api.bot_username'); // Add your bot username to config/services.php
+        $this->botUsername = config('services.telegram-bot-api.username');
 
-        if ($user && $user->telegram_connect_token && $botUsername) {
-            $this->connectUrl = 'https://t.me/' . $botUsername . '?start=' . $user->telegram_connect_token;
+        if ($user && $this->botUsername) {
+            // For account linking, we'll use the Telegram Login Widget approach
+            // The actual OAuth flow will be handled via JavaScript widget
+            $this->connectUrl = route('telegram.link.callback');
         }
     }
 

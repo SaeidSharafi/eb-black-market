@@ -7,6 +7,7 @@ use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -23,28 +24,30 @@ class User extends Authenticatable implements FilamentUser
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'email_verified_at',
-        'telegram_user_id',
-        'telegram_chat_id',
-        'telegram_username',
-        'telegram_avatar_url',
-        'telegram_connect_token',
-        'locale',
-    ];
+    protected $fillable
+        = [
+            'name',
+            'email',
+            'password',
+            'email_verified_at',
+            'telegram_user_id',
+            'telegram_chat_id',
+            'telegram_username',
+            'telegram_avatar_url',
+            'telegram_connect_token',
+            'locale',
+        ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var list<string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden
+        = [
+            'password',
+            'remember_token',
+        ];
 
     /**
      * Get the attributes that should be cast.
@@ -55,7 +58,7 @@ class User extends Authenticatable implements FilamentUser
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
         ];
     }
 
@@ -70,6 +73,11 @@ class User extends Authenticatable implements FilamentUser
         });
     }
 
+    public function marketListings(): HasMany
+    {
+        return $this->hasMany(MarketListing::class, 'user_id');
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         if ($panel->getId() === 'admin') {
@@ -78,6 +86,7 @@ class User extends Authenticatable implements FilamentUser
 
         return true;
     }
+
     /**
      * Check if the user is a super admin.
      *

@@ -47,11 +47,12 @@ class TelegramAuthController extends Controller
 
         try {
             $telegramUserId = $authData['id'];
-
+            $telegramUsername = $authData['username'] ?? null;
             // Find an existing user by their old chat_id to migrate them,
             // or find them by their new telegram_user_id if they've logged in before.
             $user = User::where('telegram_user_id', $telegramUserId)
-                ->orWhere('telegram_chat_id', $telegramUserId) // For migrating users
+                ->orWhere('telegram_chat_id', $telegramUserId)
+                ->orWhere('telegram_username', $telegramUsername) // For migrating users
                 ->first();
 
             if (!$user) {
