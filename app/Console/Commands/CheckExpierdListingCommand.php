@@ -31,10 +31,11 @@ class CheckExpierdListingCommand extends Command
     {
         $this->info('Checking for expired listings that need notification...');
         $counter = 0;
+        MarketListing::query()->each(function ($item) {
+            echo $item->updated_at->format('Y-m-d H:i:s').PHP_EOL;
+        });
         MarketListing::query()
-            ->withWhereHas('user', function ($query) {
-                $query->whereNotNull('telegram_chat_id');
-            })
+            ->with('user')
             ->where('status', ListingStatusEnum::ACTIVE)
             ->where('updated_at', '<', now()->subDays(3)->format('Y-m-d H:i:s'))
             ->whereNull('expired_notification_sent_at')
@@ -48,8 +49,9 @@ class CheckExpierdListingCommand extends Command
                     $listing->timestamps = false;
                     $listing->save(['timestamps' => false]);
 
-                    // Send the notification
-                    $listing->user->notify(new \App\Notifications\ListingExpiredNotification($listing));
+                    if ($listing->user->telegram_chat_id) {
+                        $listing->user->notify(new \App\Notifications\ListingExpiredNotification($listing));
+                    }
                     DB::commit();
                 }
             });
@@ -64,7 +66,7 @@ class CheckExpierdListingCommand extends Command
                 foreach ($listings as $listing) {
 
                     $alreadySent = cache()->get("listing_about_to_expire_{$listing->id}", false);
-                    if ($alreadySent){
+                    if ($alreadySent) {
                         continue; // Skip if notification was already sent in the last 3 hours
                     }
                     $counterAbout++;
