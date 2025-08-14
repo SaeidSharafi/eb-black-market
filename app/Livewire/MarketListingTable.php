@@ -50,7 +50,6 @@ final class MarketListingTable extends PowerGridComponent
             ->join('items', 'market_listings.item_id', '=', 'items.id')
             ->join('users', 'market_listings.user_id', '=', 'users.id')
             ->where('market_listings.status', ListingStatusEnum::ACTIVE)
-            ->where('market_listings.updated_at', '>', now()->subDays(3)->format('Y-m-d H:i:s'))
             ->select(
                 'market_listings.*',
                 'users.telegram_username',
