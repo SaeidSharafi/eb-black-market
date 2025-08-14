@@ -128,6 +128,7 @@ return [
             'connect' => 'Connect Telegram',
             'connected' => 'Telegram connected successfully!',
             'not_connected' => 'You are not connected to Telegram. Please connect to receive notifications.',
+            'open_telegram_bot' => 'Open Bot',
         ],
     ],
 ];

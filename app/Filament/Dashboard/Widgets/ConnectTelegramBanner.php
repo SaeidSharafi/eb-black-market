@@ -12,7 +12,7 @@ class ConnectTelegramBanner extends Widget
 
     public ?string $connectUrl = null;
     public ?string $botUsername = null;
-
+    public bool $isConnected = false;
     public function mount(): void
     {
         $user = Auth::user();
@@ -23,12 +23,11 @@ class ConnectTelegramBanner extends Widget
             // The actual OAuth flow will be handled via JavaScript widget
             $this->connectUrl = route('telegram.link.callback');
         }
+        $this->isConnected = !is_null($user->telegram_chat_id);
     }
 
     public static function canView(): bool
     {
-        // Only show the widget if the user is logged in and their telegram_chat_id is not set.
-        $user = Auth::user();
-        return $user && is_null($user->telegram_chat_id);
+        return Auth::check();
     }
 }

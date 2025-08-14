@@ -128,6 +128,7 @@ return [
             'connect' => 'Подключить Telegram',
             'connected' => 'Telegram успешно подключен!',
             'not_connected' => 'Telegram не подключен. Пожалуйста, свяжите свой аккаунт.',
+            'open_telegram_bot' => 'Открыть бота',
         ],
     ],
 ];
