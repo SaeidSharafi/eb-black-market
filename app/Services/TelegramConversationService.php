@@ -834,8 +834,8 @@ class TelegramConversationService
      */
     private function isNaturalLanguageListing(string $text): bool
     {
-        $text = strtolower(trim($text));
-
+        $text = mb_strtolower(trim($text), 'UTF-8');
+        Log::info("Here:" . $text);
         // Check for listing type keywords at the beginning or with colon
         $buyKeywords = ['buy', 'buying', 'wtb', 'want to buy', 'looking for', 'need', 'покупаю', 'куплю', 'ищу'];
         $sellKeywords = ['sell', 'selling', 'wts', 'want to sell', 'have', 'продаю', 'продам', 'есть'];
@@ -867,6 +867,7 @@ class TelegramConversationService
     private function processNaturalLanguageListing(string $text, User $user): void
     {
         try {
+            Log::info($text);
             $parsedListings = $this->parseNaturalLanguageListings($text);
 
             if (empty($parsedListings)) {
@@ -897,17 +898,19 @@ class TelegramConversationService
     private function parseNaturalLanguageListings(string $text): array
     {
         $lines = array_filter(array_map('trim', explode("\n", $text)));
+        Log::info('Lines', $lines);
         $listings = [];
 
         // Check if this is a colon-separated list format
         $firstLine = $lines[0] ?? '';
+        $firstLineLower = mb_strtolower(trim($firstLine), 'UTF-8');
         $isColonList = false;
         $defaultListingType = null;
 
-        if (str_ends_with(strtolower(trim($firstLine)), ':')) {
+        if (str_ends_with($firstLineLower, ':')) {
             $isColonList = true;
             // Extract the listing type from the first line
-            $firstLineLower = strtolower(trim($firstLine));
+
             $buyKeywords = ['buy', 'buying', 'wtb', 'want to buy', 'looking for', 'need', 'покупаю', 'куплю', 'ищу'];
             $sellKeywords = ['sell', 'selling', 'wts', 'want to sell', 'have', 'продаю', 'продам', 'есть'];
 
@@ -957,8 +960,9 @@ class TelegramConversationService
      */
     private function parseSingleListing(string $line): ?array
     {
+        Log::info("parseSingleListing: " . $line);
         $originalLine = $line;
-        $line = strtolower(trim($line));
+        $line = mb_strtolower(trim($line), 'UTF-8');
 
         // Determine listing type
         $buyKeywords = [
@@ -992,7 +996,7 @@ class TelegramConversationService
 
         // Remove the keyword from the beginning
         $line = trim(substr($line, $keywordLength));
-
+        Log::info("parseSingleListing2: " . $line);
         // Parse prices with currency - support multiple currencies
         $prices = [];
         $pricePatterns = [
@@ -1006,7 +1010,7 @@ class TelegramConversationService
             if (preg_match_all($pattern, $line, $matches, PREG_SET_ORDER)) {
                 foreach ($matches as $match) {
                     $amount = floatval($match[1]);
-                    $currency = strtolower($match[2]);
+                    $currency = mb_strtolower($match[2], 'UTF-8');
 
                     // Normalize currency names
                     if (in_array($currency, ['ton', 'tonc', 'toncoin'])) {
@@ -1068,8 +1072,8 @@ class TelegramConversationService
                 if ($firstNumber > 1 && $firstNumber <= 100 && $secondNumber >= ($firstNumber * 2)) {
                     $quantity = $firstNumber;
                     // Rebuild the line without the quantity for further processing
-                    $line = strtolower($itemPart.' '.$secondNumber.substr($matches[0],
-                            strpos($matches[0], $matches[3]) + strlen($matches[3])));
+                    $line = mb_strtolower($itemPart.' '.$secondNumber.substr($matches[0],
+                            strpos($matches[0], $matches[3]) + strlen($matches[3])), 'UTF-8');
                 }
             }
         }
@@ -1087,16 +1091,16 @@ class TelegramConversationService
 
         // Clean up the remaining text as item name
         // Remove common separators and clean whitespace
-        $itemName = trim(preg_replace('/[-–—]+/', '', $line));
-        $itemName = trim(preg_replace('/[|\/\\\\]+/', '', $itemName));
-        $itemName = trim(preg_replace('/\s+/', ' ', $itemName));
-
+        $itemName = trim(preg_replace('/[-–—]+/u', '', $line));
+        $itemName = trim(preg_replace('/[|\/\\\\]+/u', '', $itemName));
+        $itemName = trim(preg_replace('/\s+/u', ' ', $itemName));
+        Log::info("itemName: " . $itemName);
         // Remove any remaining price indicators
         $itemName = preg_replace('/\b\d+(?:\.\d+)?\s*(ton|qrk|not|usdt|usd)/i', '', $itemName);
 
         // Remove any remaining listing type keywords that might have leaked through
         foreach (array_merge($buyKeywords, $sellKeywords) as $keyword) {
-            if (str_starts_with(strtolower($itemName), $keyword.' ')) {
+            if (str_starts_with(mb_strtolower($itemName, 'UTF-8'), $keyword.' ')) {
                 $itemName = trim(substr($itemName, strlen($keyword) + 1));
                 break;
             }
@@ -1174,7 +1178,7 @@ class TelegramConversationService
                     'invalid' => $invalidCount,
                     'total'   => count($parsedListings)
                 ]);
-            Log::info($confirmationText);
+
             // Create confirmation keyboard
             $keyboard = Keyboard::make()->inline();
 
@@ -1358,7 +1362,9 @@ class TelegramConversationService
      */
     private function findBestMatchingItem(string $searchTerm): ?Item
     {
-        // First try exact match
+        $searchTerm = mb_strtolower(trim($searchTerm), 'UTF-8');
+        $searchTerm =$this->normalizeRussianString($searchTerm);
+        Log::info("Nromalzied:" . $searchTerm);
         $item = Item::whereRaw(
             "JSON_SEARCH(LOWER(JSON_EXTRACT(name, '$.*')), 'one', LOWER(?)) IS NOT NULL",
             [$searchTerm]
@@ -1617,5 +1623,15 @@ class TelegramConversationService
                 Log::critical('Final fallback failed: '.$finalError->getMessage());
             }
         }
+    }
+    function normalizeRussianString(string $text): string
+    {
+        // 1. Convert to lowercase using the multibyte-safe function
+        $text = mb_strtolower($text, 'UTF-8');
+
+        // 2. Replace all occurrences of 'ё' with 'е'
+        $text = str_replace('ё', 'е', $text);
+
+        return $text;
     }
 }
