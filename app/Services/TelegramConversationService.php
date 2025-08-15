@@ -1013,11 +1013,11 @@ class TelegramConversationService
                     $currency = mb_strtolower($match[2], 'UTF-8');
 
                     // Normalize currency names
-                    if (in_array($currency, ['ton', 'tonc', 'toncoin'])) {
+                    if (in_array($currency, ['ton', 'tonc', 'toncoin', 'Тон', 'тон'])) {
                         $currency = 'ton';
-                    } elseif (in_array($currency, ['qrk', 'quark'])) {
+                    } elseif (in_array($currency, ['qrk', 'quark','Кварк','Кв', 'кв','кварк'])) {
                         $currency = 'qrk';
-                    } elseif (in_array($currency, ['not', 'notcoin'])) {
+                    } elseif (in_array($currency, ['not', 'notcoin', 'Нот','нот'])) {
                         $currency = 'not';
                     } elseif (in_array($currency, ['usdt', 'usd', 'dollar'])) {
                         $currency = 'usd';
