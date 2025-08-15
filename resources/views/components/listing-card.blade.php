@@ -1,6 +1,8 @@
 @props(['listing'])
 @php
     $typeEnum = \App\Enum\ItemTypeEnum::tryFrom($listing->item->type);
+    $lsitingTypeEnum = \App\Enum\ListingTypeEnum::tryFrom($listing->listing_type);
+    $typeClass = $lsitingTypeEnum === \App\Enum\ListingTypeEnum::SELL ? 'bg-green-500' : 'bg-red-500';
 @endphp
 <article
         class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 ease-in-out"
@@ -8,6 +10,10 @@
         itemtype="https://schema.org/Product"
 >
     <div class="{{$listing->item->rarity->getRarityColor()}} relative overflow-hidden flex items-center justify-center">
+        <span class="absolute top-2 left-2 {{$typeClass}} text-black text-xs font-semibold px-2 py-1 rounded"
+        >
+            {{$lsitingTypeEnum->translate()}}
+        </span>
         <img
                 src="{{ $listing->item->image ? asset('storage/' . $listing->item->image) : asset('images/placeholder.png') }}"
                 alt="{{ $listing->item->getTranslation('name', app()->getLocale()) ?? __("resources.home.unknown") }} - {{
