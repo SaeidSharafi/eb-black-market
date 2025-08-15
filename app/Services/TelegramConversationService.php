@@ -1204,6 +1204,7 @@ class TelegramConversationService
             $this->telegram->sendMessage([
                 'chat_id'      => $user->telegram_chat_id,
                 'text'         => mb_convert_encoding($confirmationText, 'UTF-8', 'UTF-8'),
+                'parse_mode' => 'Markdown',
                 'reply_markup' => $keyboard
             ]);
 
