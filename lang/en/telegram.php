@@ -2,7 +2,17 @@
 
 return [
     'language_updated'               => 'Language updated successfully!',
+    'welcom_guest'                  => 'Welcome! Please visit our website to connect your account.',
     'welcome_back'                   => 'Welcome back, :name!',
+    'welcome_back_help' => 'Here\'s how you can get started:
+- *Create a New Listing*: Tap the "*Create New Listing*" button below to begin a guided process.
+- *Manage Existing Listings*: Use the "*Manage Listings*" button to view and edit your current items.
+- *Quick Sell: For a faster experience*, you can create a listing by sending a message directly in this chat. For example, you can type: `sell item x10 1ton`
+
+*Important*: If you intend to use the quick sell feature with natural language, please do not use the "Create New Listing" button.
+
+For a full list of commands and more detailed information, please use the /help command.
+',
     'create_new_listing'             => 'Create New Listing',
     'show_my_listing'                => 'Show My Listings',
     'manage_listing'                 => 'Manage Listings',

@@ -347,8 +347,10 @@ class TelegramConversationService
 
             $this->telegram->sendMessage([
                 'chat_id'      => $chatId,
-                'text'         => __('telegram.welcome_back', ['name' => $user->name]),
-                'reply_markup' => $keyboard
+                'text'         => __('telegram.welcome_back', ['name' => $user->name]) . "\n\n" .
+                    __('telegram.welcome_back_help'),
+                'reply_markup' => $keyboard,
+                'parse_mode' => 'Markdown'
             ]);
         } catch (Throwable $e) {
             Log::error('Error showing main menu: '.$e->getMessage(), [
@@ -604,13 +606,20 @@ class TelegramConversationService
         try {
             $loginUrl = route('telegram.auth.callback');
 
+            if (\app()->isLocal()) {
+                $loginUrl =str_replace(config('app.url'), config('app.ngrok_url'), $loginUrl);
+            }
+
             // The SDK has a dedicated parameter for login_url buttons.
             $keyboard = Keyboard::make()
                 ->inline()
                 ->row([
                     Keyboard::button([
                         'text'      => '✅ '.__('telegram.securely_connect_account'),
-                        'login_url' => $loginUrl
+                        'login_url' => [
+                            'url' => $loginUrl,
+                            'request_write_access' => true
+                        ]
                     ])
                 ]);
 
@@ -625,7 +634,7 @@ class TelegramConversationService
                 'exception' => $e
             ]);
             // Fallback - send simple message without button
-            $this->sendDirectMessage($chatId, 'Welcome! Please visit our website to connect your account.');
+            $this->sendDirectMessage($chatId, __('telegram.welcom_guest'));
         }
     }
 
