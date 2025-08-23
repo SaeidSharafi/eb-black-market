@@ -15,6 +15,7 @@ class MarketListing extends Model
     protected $fillable
         = [
             'item_id',
+            'item_level',
             'user_id',
             'quantity',
             'quantity_per_bundle',

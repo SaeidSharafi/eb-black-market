@@ -7,7 +7,7 @@ return [
     'welcome_back_help' => 'Here\'s how you can get started:
 - *Create a New Listing*: Tap the "*Create New Listing*" button below to begin a guided process.
 - *Manage Existing Listings*: Use the "*Manage Listings*" button to view and edit your current items.
-- *Quick Sell: For a faster experience*, you can create a listing by sending a message directly in this chat. For example, you can type: `sell item x10 1ton`
+- *Quick Sell: For a faster experience*, you can create a listing by sending a message directly in this chat. For example, you can type: `sell Miner\'s Pickaxe L5 x10 1ton`
 
 *Important*: If you intend to use the quick sell feature with natural language, please do not use the "Create New Listing" button.
 
@@ -26,7 +26,10 @@ For a full list of commands and more detailed information, please use the /help 
     'enter_price_in_currency'        => 'Please enter the price in :currency.',
     'invalid_price_input'            => '⚠️ Invalid input. Please enter a positive numeric price.',
     'invalid_quantity_input'         => '⚠️ Invalid quantity. Please enter a positive whole number.',
+    'invalid_item_level_input'       => '⚠️ Invalid item level. Please enter a number between 0 and 10, or type "skip".',
     'quantity_set_now_price'         => 'Quantity set to :quantity. Now please set a price or press Done.',
+    'item_level_set_now_quantity'    => 'Item level set to :level. Now please enter the quantity.',
+    'no_level'                       => 'no level',
     'price_set_current_prices'       => 'Price set. Current prices: [:prices]. Set another or press Done.',
     'listing_created_success'        => '✅ Success! Your listing has been created.',
     'no_items_found'                 => '⚠️ No items found matching \':search\'. Please try again.',
@@ -36,40 +39,68 @@ For a full list of commands and more detailed information, please use the /help 
 
     // Natural language listing messages
     'could_not_parse_listing'        => '⚠️ I couldn\'t understand your listing format.',
+    'item_name_parsing_tips'         => '🔍 *Item Name Tips*:
+• System matches any part of item names (partial search)
+• Use keywords: "Pickaxe" finds "Miner\'s Pickaxe"
+• Case insensitive: "healing" = "HEALING" = "Healing"
+• Try different word combinations: "Baron Coat" or "Samedi Coat"
+• Shorter terms often work better than full names
+• If still not found, use /newlisting for guided item search',
     'listing_format_example'         => '📝 Try these formats:
 
 *Single item (default quantity = 1):*
-sell Ritti 1 TON
-sell Lamp 1 TON 300 QRK 400 NOT
+sell Ritti Cash Machine 1 TON
+sell Lamp With Dust 1 TON 300 QRK 400 NOT
 buy Digger\'s Boots 50 QRK
 
 *With explicit quantity:*
 sell Iron bracket 5x 100 TON
 sell Copper bracket x3 200 TON
-buy Healing Potion 10x 50 QRK
+buy Large Healing Potion 10x 50 QRK
+
+*With item levels (equipment only):*
+sell Quark Cutter L5 100 TON
+sell Baron Samedi\'s Coat +3 x2 500 QRK
+buy Tin Woodcutter\'s Axe level 10 2000 TON
 
 *List format:*
 selling:
-Ritti 1 TON
+Ritti Cash Machine 1 TON
 Iron bracket 5x 100 TON
-Copper bracket x3 200 TON
-Healing Potion 10x 50 QRK
+Flur Gladius L8 x1 500 TON
+Large Healing Potion 10x 50 QRK
 
 *💡 Tips:*
 • Use "x" for quantities: 5x, x5, 5шт
+• Use levels for equipment: L5, +3, level 8, lvl 5
 • For items with numbers, be explicit: "Iron Sword 1000" 5x 100 TON
-• Default quantity is 1 if not specified',
+• Default quantity is 1 if not specified
+
+*⚠️ Item Name Matching:*
+• System searches for partial matches within item names
+• Use any part of the item name: "Pickaxe" will find "Miner\'s Pickaxe"
+• Case doesn\'t matter: "pickaxe" = "PICKAXE" = "Pickaxe"
+• Shorter names often work better than full names
+• If no match found, try different parts: "Double-barreled" or "Menton\'s"
+• For difficult items, use /newlisting with guided search',
     'parsed_listings_confirmation'   => '✅ I found these listings:',
     'listings_creation_summary'      => '📊 Created :created listings successfully. :failed failed.',
     'failed_items'                   => '❌ Failed items',
     'natural_listing_tip'            => '💡 Tip: You can also create listings naturally by typing something like:
-"sell Iron Sword 5x 100 TON" or "buy Magic Potion - 10 - 50 QRK"',
+"sell Miner\'s Pickaxe L5 5x 100 TON" or "buy Small Healing Potion 10 50 QRK"',
     'help_message'                   => '🤖 Empire Market Bot Help
 
 You can use this bot in two ways:
 
 1️⃣ *Wizard Mode*: Use /newlisting for step-by-step listing creation
-2️⃣ *Natural Language*: Type your listings directly',
+   • Guided process with item search
+   • Perfect for complex or hard-to-spell item names
+   • Recommended for new users
+
+2️⃣ *Natural Language*: Type your listings directly
+   • Fast but requires exact item names
+   • Works best with simple, well-known item names
+   • If item not recognized, use wizard mode instead',
 
     // Natural language confirmation flow
     'natural_listings_preview'       => '🔍 *Listing Preview*
@@ -85,13 +116,19 @@ Please review the parsed listings below:',
     'retry_natural_listings_help'    => '📝 Please send your listings again. Make sure to use the correct format:
 
 *Examples:*
-sell Iron Sword 100 TON
-buy Magic Potion 5x 50 QRK
+sell Miner\'s Pickaxe 100 TON
+buy Large Healing Potion 5x 50 QRK
 
 *List format:*
 selling:
-Iron Sword 100 TON
-Magic Shield 200 TON',
+Miner\'s Pickaxe 100 TON
+Knight\'s Copper Helm 200 TON
+
+*💡 If items not found, try:*
+• Different keywords: "Gladius" instead of "Flur Gladius"
+• Single words: "Boots" instead of "Digger\'s Boots"
+• Alternative spellings or shorter versions
+• Use /newlisting for difficult item names',
 
     // Fallback and help messages
     'unknown_command'                => '❓ Unknown command ":command". Here are your available options:',
@@ -105,6 +142,7 @@ Magic Shield 200 TON',
     'help_language_selection'        => '🌐 Please use the buttons above to select your language.',
     'help_listing_type'              => '📝 Please use the buttons above to choose Buy or Sell.',
     'help_item_selection'            => '🎯 Please use the buttons above to select an item from the list.',
+    'help_item_level'                => '⚡ Please enter the item level (0-10) or type "skip" if this item has no level. Equipment items can have levels that affect their stats.',
     'help_quantity'                  => '🔢 Please enter a positive whole number for the quantity.',
     'help_price_selection'           => '💰 Please use the buttons above to set a price or click Done.',
     'help_general'                   => '💡 Please use the menu buttons or type /start for help.',
@@ -113,6 +151,7 @@ Magic Shield 200 TON',
         'awaiting_listing_type'       => 'Please choose whether you want to Buy or Sell.',
         'awaiting_item_name'          => 'Please enter the name of the item.',
         'awaiting_item_selection'     => 'Please select the correct item from the list below.',
+        'awaiting_item_level'         => 'Please enter the item level (0-10) or type "skip" for no level.',
         'awaiting_quantity'           => 'Please enter the quantity of the item you want to list.',
         'awaiting_price'              => 'Please set a price for your listing.',
         'awaiting_price_amount'       => 'Please enter the amount.',

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enum\ItemRarityEnum;
+use App\Enum\ItemTypeEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
@@ -16,7 +17,8 @@ class Item extends Model
 
     protected $casts = [
         'last_listed_at' => 'datetime',
-        'rarity' => ItemRarityEnum::class
+        'rarity' => ItemRarityEnum::class,
+        'type' => ItemTypeEnum::class
     ];
 
     public function marketListings(): HasMany

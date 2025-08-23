@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enum\CallbackQueryActionEnum;
+use App\Enum\ItemTypeEnum;
 use App\Enum\ListingStatusEnum;
 use App\Enum\TelegramConversationStepEnum;
 use App\Models\Item;
@@ -656,6 +657,7 @@ class TelegramConversationService
             match ($conversation->step) {
                 TelegramConversationStepEnum::AWAITING_ITEM_NAME => $this->processItemSearch($conversation, $text,
                     $user),
+                TelegramConversationStepEnum::AWAITING_ITEM_LEVEL => $this->processItemLevel($conversation, $text),
                 TelegramConversationStepEnum::AWAITING_QUANTITY => $this->processQuantity($conversation, $text),
                 TelegramConversationStepEnum::AWAITING_PRICE_AMOUNT => $this->processPriceAmount($conversation, $text),
                 default => $this->handleUnexpectedInput($conversation, $text),
@@ -701,8 +703,17 @@ class TelegramConversationService
         try {
             $data = $conv->data;
             $data['item_id'] = $itemId;
+
+            // Check if the selected item is equipment and should ask for level
+            $item = Item::find($itemId);
+            $nextStep = TelegramConversationStepEnum::AWAITING_QUANTITY;
+
+            if ($item && ItemTypeEnum::from($item->type)->isEquipment()) {
+                $nextStep = TelegramConversationStepEnum::AWAITING_ITEM_LEVEL;
+            }
+
             $conv->update([
-                'step' => TelegramConversationStepEnum::AWAITING_QUANTITY,
+                'step' => $nextStep,
                 'data' => $data
             ]);
 
@@ -773,6 +784,45 @@ class TelegramConversationService
         }
     }
 
+    private function processItemLevel(TelegramConversation $conv, string $level): void
+    {
+        try {
+            // Allow "skip" or "no level" to continue without setting level
+            if (in_array(strtolower(trim($level)), ['skip', 'no', 'none', 'пропустить', 'нет'])) {
+                $level = null;
+            } else {
+                if (!is_numeric($level) || $level < 0 || $level > 10 || !ctype_digit($level)) {
+                    $this->telegram->sendMessage([
+                        'chat_id' => $conv->chat_id,
+                        'text'    => __('telegram.invalid_item_level_input')
+                    ]);
+                    return;
+                }
+                $level = (int) $level;
+            }
+
+            $data = $conv->data;
+            $data['item_level'] = $level;
+            $conv->update([
+                'step' => TelegramConversationStepEnum::AWAITING_QUANTITY,
+                'data' => $data
+            ]);
+
+            $levelText = $level !== null ? "L{$level}" : __('telegram.no_level');
+            $this->telegram->sendMessage([
+                'chat_id' => $conv->chat_id,
+                'text'    => __('telegram.item_level_set_now_quantity', ['level' => $levelText])
+            ]);
+        } catch (Throwable $e) {
+            Log::error('Error processing item level: '.$e->getMessage(), [
+                'conversation_id' => $conv->id,
+                'level'           => $level,
+                'exception'       => $e
+            ]);
+            $this->sendErrorMessage($conv->chat_id, 'Failed to process item level. Please try again.');
+        }
+    }
+
     private function processPriceAmount(TelegramConversation $conv, string $amount): void
     {
         try {
@@ -812,7 +862,7 @@ class TelegramConversationService
     {
         try {
             $data = $conv->data;
-            MarketListing::create(array_merge(
+            $listingData = array_merge(
                 [
                     'user_id'  => $conv->user_id,
                     'quantity' => data_get($data, 'quantity', 1), // Use the quantity from conversation or default to 1
@@ -821,7 +871,14 @@ class TelegramConversationService
                 $data['prices'] ?? [],
                 ['item_id' => data_get($data, 'item_id')],
                 ['listing_type' => data_get($data, 'listing_type')],
-            ));
+            );
+
+            // Add item_level if it exists in conversation data
+            if (isset($data['item_level']) && $data['item_level'] !== null) {
+                $listingData['item_level'] = $data['item_level'];
+            }
+
+            MarketListing::create($listingData);
 
             $this->telegram->sendMessage([
                 'chat_id' => $conv->chat_id,
@@ -1121,8 +1178,32 @@ class TelegramConversationService
             return null;
         }
 
+        // Parse item level - look for patterns like "L5", "lvl5", "level5", "+5"
+        $itemLevel = null;
+        $levelPatterns = [
+            '/\b[lL](\d+)\b/',              // L5, l5
+            '/\b[lL]v[lL]\s*(\d+)\b/i',     // lvl5, LVL5, lvl 5
+            '/\blevel\s*(\d+)\b/i',         // level5, level 5
+            '/\+(\d+)\b/',                  // +5
+            '/\bуровень\s*(\d+)\b/i',       // уровень5, уровень 5 (Russian)
+            '/\bур\s*(\d+)\b/i',            // ур5, ур 5 (Russian)
+        ];
+
+        foreach ($levelPatterns as $pattern) {
+            if (preg_match($pattern, $itemName, $matches)) {
+                $level = intval($matches[1]);
+                if ($level >= 0 && $level <= 10) {
+                    $itemLevel = $level;
+                    // Remove the level indicator from item name
+                    $itemName = trim(preg_replace($pattern, '', $itemName));
+                    break;
+                }
+            }
+        }
+
         return [
             'item_name'     => $itemName,
+            'item_level'    => $itemLevel,
             'quantity'      => $quantity,
             'listing_type'  => $listingType,
             'prices'        => $prices,
@@ -1162,11 +1243,18 @@ class TelegramConversationService
                     $enrichedListings[] = array_merge($listing, ['item_found' => false]);
                 }
 
+                // Check if item supports level and if level was provided
+                $levelDisplay = '';
+                if ($item && ItemTypeEnum::from($item->type)->isEquipment() && isset($listing['item_level']) && $listing['item_level'] !== null) {
+                    $levelDisplay = " L{$listing['item_level']}";
+                }
+
                 $confirmationText .= sprintf(
-                    "%d. %s %s (%s) (x%d) - %s",
+                    "%d. %s %s%s (%s) (x%d) - %s",
                     $index + 1,
                     ucfirst($listing['listing_type']),
                     $item ? $item->getTranslation('name', app()->getLocale()) : '',
+                    $levelDisplay,
                     $listing['item_name'],
                     $listing['quantity'],
                     $this->formatPrices($listing['prices'])
@@ -1258,14 +1346,21 @@ class TelegramConversationService
                 if ($item) {
                     // Create the listing
                     try {
-                        MarketListing::create([
+                        $listingData = [
                             'user_id'      => $user->id,
                             'item_id'      => $item->id,
                             'quantity'     => $listing['quantity'],
                             'listing_type' => $listing['listing_type'],
                             'status'       => 'active',
                             ...$listing['prices']
-                        ]);
+                        ];
+
+                        // Add item_level if it's an equipment item and level was specified
+                        if (ItemTypeEnum::from($item->type)->isEquipment() && isset($listing['item_level']) && $listing['item_level'] !== null) {
+                            $listingData['item_level'] = $listing['item_level'];
+                        }
+
+                        MarketListing::create($listingData);
                         $createdCount++;
                     } catch (Throwable $e) {
                         $failedCount++;

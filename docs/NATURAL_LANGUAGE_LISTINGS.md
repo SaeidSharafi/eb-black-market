@@ -65,6 +65,18 @@ Multiple currencies are supported and can be combined in a single listing.
 *   **NOT**: `not`, `notcoin`
 *   **USD**: `usd`, `usdt`, `dollar`
 
+### Item Level Support
+For equipment items (weapons, armor, accessories, etc.), you can specify the item level (0-10) using various formats:
+*   **L5**: `L5`, `l5`
+*   **Level**: `level5`, `level 5`, `lvl5`, `lvl 5`
+*   **Plus notation**: `+5`
+*   **Russian**: `уровень5`, `уровень 5`, `ур5`, `ур 5`
+
+Equipment items that support levels:
+- WEAPON, PANTS, GLOVES, BODY, HELMET, BOOTS, AMPLIFIER, ACCESSORY
+
+Non-equipment items (consumables, resources, parts, recipes) ignore level specifications.
+
 ### Examples
 
 **Single item listings:**
@@ -75,23 +87,32 @@ selling Iron Boots 3 75 NOT
 buying Health Potion 25 TON
 ```
 
+**With item levels:**
+```
+sell Sword L5 100 TON
+sell Magic Armor +3 x2 500 QRK
+buy Legendary Weapon level 10 2000 TON
+selling Dragon Boots lvl 8 300 NOT
+```
+
 **Multiple currencies:**
 ```
-sell Legendary Shield 1 500 TON 250 QRK
-sell Baron 3000 QRK 5 TON
+sell Legendary Shield L7 1 500 TON 250 QRK
+sell Baron level3 3000 QRK 5 TON
 ```
 
 **Multiple items (one per line):**
 ```
-sell Iron Sword 5x 100 TON
-sell Magic Shield 1 200 TON  
+sell Iron Sword L5 5x 100 TON
+sell Magic Shield +3 1 200 TON  
 buy Health Potion x20 5 NOT
 ```
 
 **Russian examples:**
 ```
-продаю Железный меч 5x 100 TON
+продаю Железный меч L5 5x 100 TON
 покупаю Магическое зелье 10 50 QRK
+продаю Драконьи сапоги уровень 8 300 NOT
 ```
 
 ## Confirmation Flow
