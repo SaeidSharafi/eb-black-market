@@ -15,7 +15,7 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['telegram_user_id', 'telegram_username', 'telegram_avatar_url']);
+            $table->dropColumn(['telegram_avatar_url']);
         });
     }
 };

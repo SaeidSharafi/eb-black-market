@@ -61,7 +61,7 @@ class CheckExpierdListingCommand extends Command
                 $query->whereNotNull('telegram_chat_id');
             })
             ->where('status', ListingStatusEnum::ACTIVE)
-            ->where('updated_at', '<', now()->subDays(2)->subHours(12)->format('Y-m-d H:i:s'))
+            ->where('updated_at', '<', now()->subDays(2)->subHours(13)->format('Y-m-d H:i:s'))
             ->chunk(100, function ($listings) use (&$counterAbout) {
                 foreach ($listings as $listing) {
 

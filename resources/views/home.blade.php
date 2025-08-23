@@ -18,7 +18,7 @@
                 {{ __('resources.home.subtitle') }}
             </p>
             <nav class="flex justify-center items-center space-x-4" aria-label="Primary actions">
-                <a href="#latest-listings"
+                <a href="{{ route('market-listings.index') }}"
                     class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full transition text-sm md:text-lg transform hover:scale-105"
                     aria-describedby="explore-description">
                     {{ __('resources.home.explore_listings') }}

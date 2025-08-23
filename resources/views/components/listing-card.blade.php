@@ -1,6 +1,6 @@
 @props(['listing'])
 @php
-    $typeEnum = \App\Enum\ItemTypeEnum::tryFrom($listing->item->type);
+    $typeEnum = $listing->item->type;
     $lsitingTypeEnum = \App\Enum\ListingTypeEnum::tryFrom($listing->listing_type);
     $typeClass = $lsitingTypeEnum === \App\Enum\ListingTypeEnum::SELL ? 'bg-green-500' : 'bg-red-500';
 @endphp

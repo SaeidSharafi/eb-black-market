@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enum\ListingStatusEnum;
 use App\Models\MarketListing;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -10,6 +11,7 @@ class HomeService
     public function getLatestListings(int $limit = 10)
     {
         return MarketListing::with(['item', 'user'])
+            ->where('status', ListingStatusEnum::ACTIVE)
             ->orderByDesc('created_at')
             ->take($limit)
             ->get();

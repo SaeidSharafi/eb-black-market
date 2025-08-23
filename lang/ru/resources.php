@@ -79,6 +79,8 @@ return [
         'item_image' => 'Изображение',
         'item_image_alt' => 'Изображение товара',
         'item_name' => 'Название',
+        //lvl
+        'item_level' => 'lvl',
         'item_type' => 'Тип',
         'prices' => 'Цены',
         'avg_prices' => 'Средние цены',

@@ -79,6 +79,7 @@ return [
         'item_image' => 'Item Image',
         'item_image_alt' => 'Item Image',
         'item_name' => 'Item Name',
+        'item_level' => 'lvl',
         'item_type' => 'Item Type',
         'prices' => 'Prices',
         'avg_prices' => 'Average Prices',

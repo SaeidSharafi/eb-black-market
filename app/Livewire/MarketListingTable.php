@@ -100,11 +100,12 @@ final class MarketListingTable extends PowerGridComponent
                     HTML
                 );
             })
-            ->add('item_type', fn(MarketListing $listing) => __('enums.ItemTypeEnum.'.$listing->item->type))
+            ->add('item_level', fn(MarketListing $listing) => $listing->item_level)
+            ->add('item_type', fn(MarketListing $listing) => $listing->item->type->translate())
             ->add('updated_at_formatted', fn(MarketListing $listing) => $listing->updated_at->diffForHumans())
             ->add('item_image', function (MarketListing $listing) {
                 $itemName = e($listing->item->getTranslation('name', app()->getLocale()));
-                $hideRarityTag = ItemTypeEnum::tryFrom($listing->item->type)?->isEquipment() ? 'inline-block' : 'hidden';
+                $hideRarityTag = $listing->item->type->isEquipment() ? 'inline-block' : 'hidden';
 
                 if ($listing->item->image) {
                     $imageUrl = asset('storage/'.$listing->item->image);
@@ -166,6 +167,8 @@ final class MarketListingTable extends PowerGridComponent
             Column::make(__('resources.home.item_name'), 'item_name', 'items.name')
                 ->sortable()
                 ->searchableRaw("JSON_SEARCH(LOWER(JSON_EXTRACT(items.name, '$.*')), 'one', LOWER(?)) IS NOT NULL"),
+            Column::make(__('resources.home.item_level'), 'item_level', 'market_listings.item_level')
+            ->sortable(),
             Column::make(__('resources.home.prices'), 'prices', 'price_qrk'),
             Column::make(__('resources.home.avg_prices'), 'avg_prices', 'avg_price_usdt')
                 ->sortable(),
@@ -193,6 +196,21 @@ final class MarketListingTable extends PowerGridComponent
                 ->optionValue('value'),
             Filter::select('item_image','items.rarity' )
                 ->dataSource(ItemRarityEnum::getValueLabel())
+                ->optionLabel('label')
+                ->optionValue('value'),
+            Filter::select('item_level', 'market_listings.item_level')
+                ->dataSource([
+                    ['label' => '1', 'value' => '1'],
+                    ['label' => '2', 'value' => '2'],
+                    ['label' => '3', 'value' => '3'],
+                    ['label' => '4', 'value' => '4'],
+                    ['label' => '5', 'value' => '5'],
+                    ['label' => '6', 'value' => '6'],
+                    ['label' => '7', 'value' => '7'],
+                    ['label' => '8', 'value' => '8'],
+                    ['label' => '9', 'value' => '9'],
+                    ['label' => '10', 'value' => '10'],
+                ])
                 ->optionLabel('label')
                 ->optionValue('value'),
 

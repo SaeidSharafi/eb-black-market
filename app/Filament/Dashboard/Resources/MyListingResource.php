@@ -78,7 +78,12 @@ class MyListingResource extends Resource
                         ->numeric()
                         ->default(1)
                         ->hidden(),
-
+                    Forms\Components\TextInput::make('item_level')
+                        ->label(__('resources.home.item_level'))
+                        ->numeric()
+                        ->minValue(0)
+                        ->maxValue(10)
+                        ->default(0),
                     Forms\Components\Select::make('status')
                         ->label(__('resources.market_listings.fields.status'))
                         ->options(ListingStatusEnum::getKeyValuePairs())
@@ -116,8 +121,6 @@ class MyListingResource extends Resource
                 Tables\Columns\TextColumn::make('quantity')
                     ->label(__('resources.market_listings.fields.quantity'))
                     ->sortable(),
-                Tables\Columns\TextColumn::make('quantity_per_bundle')
-                    ->label(__('resources.market_listings.fields.quantity_per_bundle')),
                 Tables\Columns\TextColumn::make('price_qrk')->label(__('resources.market_listings.fields.price_qrk'))->money('QRK')->sortable()->toggleable(),
                 Tables\Columns\TextColumn::make('price_not')->label(__('resources.market_listings.fields.price_not'))->money('NOT')->sortable()->toggleable(),
                 Tables\Columns\TextColumn::make('price_ton')->label(__('resources.market_listings.fields.price_ton'))->money('TON')->sortable()->toggleable(),

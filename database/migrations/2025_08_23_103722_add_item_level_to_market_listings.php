@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('market_listings', function (Blueprint $table) {
-            $table->integer('item_level')->nullable()->after('item_id');
+            $table->integer('item_level')->default(0)->after('item_id');
         });
     }
 
