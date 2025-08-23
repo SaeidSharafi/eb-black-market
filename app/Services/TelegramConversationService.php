@@ -708,7 +708,7 @@ class TelegramConversationService
             $item = Item::find($itemId);
             $nextStep = TelegramConversationStepEnum::AWAITING_QUANTITY;
 
-            if ($item && ItemTypeEnum::from($item->type)->isEquipment()) {
+            if ($item && $item->type->isEquipment()) {
                 $nextStep = TelegramConversationStepEnum::AWAITING_ITEM_LEVEL;
             }
 
@@ -1245,7 +1245,7 @@ class TelegramConversationService
 
                 // Check if item supports level and if level was provided
                 $levelDisplay = '';
-                if ($item && ItemTypeEnum::from($item->type)->isEquipment() && isset($listing['item_level']) && $listing['item_level'] !== null) {
+                if ($item && $item->type->isEquipment() && isset($listing['item_level']) && $listing['item_level'] !== null) {
                     $levelDisplay = " L{$listing['item_level']}";
                 }
 
@@ -1356,7 +1356,7 @@ class TelegramConversationService
                         ];
 
                         // Add item_level if it's an equipment item and level was specified
-                        if (ItemTypeEnum::from($item->type)->isEquipment() && isset($listing['item_level']) && $listing['item_level'] !== null) {
+                        if ($item->type->isEquipment() && isset($listing['item_level']) && $listing['item_level'] !== null) {
                             $listingData['item_level'] = $listing['item_level'];
                         }
 
